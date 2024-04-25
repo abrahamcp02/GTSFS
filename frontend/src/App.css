@@ -1,0 +1,27 @@
+html, body {
+  height: 100%; /* Asegura que el elemento raíz y el cuerpo tengan la altura completa */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column; /* Organiza los elementos en una columna */
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Min-height a 100% de la altura del viewport */
+}
+
+.App {
+  flex: 1; /* Hace que el contenedor .App crezca y ocupe cualquier espacio disponible */
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  background-color: #343a40;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  width: 100%;
+}
