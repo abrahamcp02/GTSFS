@@ -1,0 +1,72 @@
+.performance-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.performance-item {
+  width: 300px; /* Ancho fijo para cada ítem */
+  border: 1px solid #ccc; /* Bordes sutiles */
+  border-radius: 8px; /* Bordes redondeados */
+  overflow: hidden; /* Asegura que nada se desborde del borde redondeado */
+  background: #fff; /* Fondo blanco para cada ítem */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera para profundidad */
+}
+
+.performance-image-container {
+  width: 100%; /* Utiliza todo el ancho disponible */
+  height: 200px; /* Altura fija para la imagen */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.performance-image {
+  max-width: 100%; /* Asegura que la imagen no exceda su contenedor */
+  max-height: 100%; /* Mantiene la proporción de la imagen */
+  object-fit: contain; /* Mantiene la proporción sin deformar */
+}
+
+.performance-details {
+  padding: 10px;
+  text-align: center; /* Centra el texto de los detalles */
+}
+
+.performance-name {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.performance-price {
+  font-size: 1.1em;
+  color: #4CAF50; /* Color verde para el precio */
+  margin-bottom: 10px;
+}
+
+.performance-actions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.edit-button,
+.delete-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1.1em;
+}
+
+.performance-image-container:hover .performance-image {
+  transform: scale(1.3); /* Aumenta la escala de la imagen al 110% */
+  transition: transform 0.3s ease; /* Hace que el cambio de tamaño sea suave */
+}
+
+/* Puedes agregar estados de hover para mejorar la interactividad */
+.edit-button:hover,
+.delete-button:hover {
+  opacity: 0.7;
+}
