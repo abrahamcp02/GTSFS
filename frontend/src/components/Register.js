@@ -14,8 +14,9 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await register(username, email, password);
-      console.log(response); // Manejar la respuesta del servidor, por ejemplo, redirigir al usuario al inicio de sesión
+      const response = await register(username, email, name, password);
+      console.log(response);
+      window.location.href = '/';
     } catch (error) {
       console.error('Error en el registro:', error.message);
     }

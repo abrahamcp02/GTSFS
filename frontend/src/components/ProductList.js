@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; // Asegúrate de importar Link aquí
 import { fetchProducts, deleteProduct, updateProduct } from '../services/apiService';
+import { jwtDecode } from "jwt-decode";
 import './ProductList.css';
 
 const ProductList = () => {
@@ -39,27 +40,55 @@ const ProductList = () => {
     setEditingProductId(null);
   };
 
-  return (
-    <div className="product-list-container">
-      {products.map(product => (
-        <div key={product.id} className="product-item">
-          <div className="product-image-container">
-            <img src={product.image} alt={product.name} className="product-image" />
-          </div>
-          <div className="product-details">
-            <Link to={`/products/${product.id}`} className="product-name">
-              {product.name}
-            </Link>
-            <p className="product-price">{product.price} €</p>
-            <div className="product-actions">
-              <button className="edit-button">✏️</button>
-              <button className="delete-button">🗑️</button>
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    const decoded = jwtDecode(token);
+    const username=decoded.username;
+
+    return (
+      <div className="product-list-container">
+        {products.map(product => (
+          <div key={product.id} className="product-item">
+            <div className="product-image-container">
+              <img src={product.image} alt={product.name} className="product-image" />
+            </div>
+            <div className="product-details">
+              <Link to={`/products/${product.id}`} className="product-name">
+                {product.name}
+              </Link>
+              <p className="product-price">{product.price} €</p>
+              <div className="product-actions">
+                <button className="edit-button">✏️</button>
+                <button className="delete-button">🗑️</button>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
-    </div>
-  );
+        ))}
+      </div>
+    );
+  }
+
+  else{
+    return (
+      <div className="product-list-container">
+        {products.map(product => (
+          <div key={product.id} className="product-item">
+            <div className="product-image-container">
+              <img src={product.image} alt={product.name} className="product-image" />
+            </div>
+            <div className="product-details">
+              <Link to={`/products/${product.id}`} className="product-name">
+                {product.name}
+              </Link>
+              <p className="product-price">{product.price} €</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
 };
 
 export default ProductList;

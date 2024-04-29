@@ -10,6 +10,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import ProductDetails from './components/ProductDetails';
 import { UserProvider } from './context/UserContext';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'; // Asegúrate de que este archivo contiene los estilos mencionados
 
 const App = () => {
