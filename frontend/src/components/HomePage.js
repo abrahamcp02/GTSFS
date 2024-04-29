@@ -15,38 +15,52 @@ const HomePage = () => {
       .catch(error => console.error('Error:', error));
   }, []);
 
-  const getUsername = () => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decoded = jwtDecode(token);
-      return{
-        username: decoded.username,
-        role: decoded.role
-      };  // Asegúrate de que el token incluye un campo 'username'
-    }
-  };
-
   const logout = () => {
     localStorage.removeItem('token');  // Elimina el token de localStorage
     // Aquí también puedes redirigir al usuario a la pantalla de inicio de sesión o a la página principal
     window.location.href = '/login'; // Redirecciona al usuario a la página de login
   };
 
-  const User = getUsername();
+  var username = "vacio";
+  var role = "vacio";
+  const token = localStorage.getItem('token');
+  if (token) {
+    const decoded = jwtDecode(token);
+      username=decoded.username;
+      role=decoded.role;
+  }
 
-  return (
-    <div>
-    <h1>Bienvenido {User.username}, eres {User.role}</h1>
-    <HeroSection />
-      {news.map(item => (
-        <NewsItem key={item.id} title={item.title} content={item.content} />
-      ))}
-    <button onClick={logout} style={{ cursor: 'pointer' }}>
-      Cerrar Sesión
-    </button>
-    </div>
-    
-  );
-};
+  if(username==="vacio"){
+    return (
+      <div>
+      <HeroSection />
+        {news.map(item => (
+          <NewsItem key={item.id} title={item.title} content={item.content} />
+        ))}
+      <button onClick={logout} style={{ cursor: 'pointer' }}>
+        Cerrar Sesión
+      </button>
+      </div>
+      
+    );
+  }
+  else{
+    return (
+      <div>
+      <h1>Bienvenido {username}, eres {role}</h1>
+      <HeroSection />
+        {news.map(item => (
+          <NewsItem key={item.id} title={item.title} content={item.content} />
+        ))}
+      <button onClick={logout} style={{ cursor: 'pointer' }}>
+        Cerrar Sesión
+      </button>
+      </div>
+      
+    );
+  };
+}
+
+
 
 export default HomePage;

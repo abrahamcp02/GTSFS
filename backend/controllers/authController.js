@@ -46,39 +46,23 @@ function login(req, res) {
 }
 
 async function register(req, res) {
-  const { username, password, email, name } = req.body;
-
-  console.log("Datos recibidos para registro:", { username, email, name });
-
-  if (!password) {
-    console.error("No se proporcionó contraseña.");
-    return res.status(400).json({ message: "La contraseña es obligatoria." });
-  }
+  const { username, email, name, password } = req.body;
 
   try {
-    const users = await User.getByUsername(username);
-    console.log("Resultado de búsqueda de usuario existente:", users);
-
-    if (users.length > 0) {
-      console.log("Usuario ya existe.");
-      return res.status(409).json({ message: 'El usuario ya existe' });
+    // Verifica si el usuario ya existe
+    const existingUser = await User.getByUsername(username);
+    if (existingUser) {
+      return res.status(400).json({ message: 'El nombre de usuario ya está en uso' });
     }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    console.log("Contraseña hasheada:", hashedPassword);
-
-    const result = await User.create(username, hashedPassword, name, email);
-    console.log("Resultado de la creación del usuario:", result);
-
-    const token = jwt.sign({ userId: result.insertId }, 'secreto', { expiresIn: '1h' });
-    res.json({ message: 'Registro exitoso', token: token });
+    const saltRounds = 10; // Es común usar 10 rondas de sal
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    // Crea un nuevo usuario
+    const user = await User.create(username, email, name, hashedPassword);
   } catch (error) {
-    console.error('Error en el proceso de registro:', error);
-    res.status(500).json({ message: 'Error interno del servidor' });
+    console.error('Error en el registro de usuario:', error);
+    res.status(500).json({ message: 'Error en el servidor' });
   }
 }
-
-
 
 
 module.exports = { login, register };
