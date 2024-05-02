@@ -48,7 +48,7 @@ const PerformanceList = () => {
             <Link to={`/performances/${performance.id}`} className="performance-name">
               {performance.title}
             </Link>
-            <p className="performance-price">{performance.performance_date} €</p>
+            <p className="performance_date">{performance.performance_date}</p>
             <div className="performance-actions">
               <button className="edit-button">✏️</button>
               <button className="delete-button">🗑️</button>

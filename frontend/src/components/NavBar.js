@@ -13,6 +13,7 @@ const NavBar = () => {
   const handleLogout = () => {
     setUser(null); // Limpia el usuario del contexto
     localStorage.removeItem('token'); // Elimina el token del localStorage
+    window.location.href = '/';
   };
 
   const token = localStorage.getItem('token');
@@ -51,8 +52,7 @@ const NavBar = () => {
               </button>
               <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                 <li><Link className="dropdown-item" to="/profile">Mi perfil</Link></li>
-                <li><Link className="dropdown-item" to="/logout">Cerrar sesión</Link></li>
-                <li><Link className="dropdown-item" to="/archive">2021</Link></li>
+                <li><Link className="dropdown-item" onClick={handleLogout}>Cerrar sesión</Link></li>
               </ul>
             </li>
           </ul>
