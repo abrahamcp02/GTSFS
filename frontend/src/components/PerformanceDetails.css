@@ -15,7 +15,7 @@
 }
 
 .performance-image {
-  width: 100%; /* La imagen ocupa todo el ancho del contenedor */
+  width: auto; /* La imagen ocupa todo el ancho del contenedor */
   height: auto; /* Altura automática para mantener la proporción */
 }
 
@@ -31,6 +31,10 @@
 
 .performance-ref {
   color: #666;
+  margin-bottom: 10px;
+}
+
+.performance-buy{
   margin-bottom: 10px;
 }
 

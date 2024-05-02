@@ -1,7 +1,7 @@
 // Asegúrate de importar useEffect y useState de React.
 import React, { useEffect, useState } from 'react';
 // useParams se utiliza para obtener el id del espectáculo de la URL.
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate  } from 'react-router-dom';
 // fetchperformanceById es la función que obtiene los datos del espectáculo de tu API.
 import { fetchPerformanceById } from '../services/apiPerformanceService';
 import ReactPlayer from 'react-player';
@@ -11,6 +11,7 @@ import './PerformanceDetails.css';
 const PerformanceDetails = () => {
   // Obtiene el performanceId de la URL.
   const { performanceId } = useParams();
+  const navigate = useNavigate();
   // El estado del espectáculo inicia como null y se actualizará con los datos del espectáculo.
   const [performance, setPerformance] = useState(null);
   // Controla la visualización del indicador de carga.
@@ -32,6 +33,10 @@ const PerformanceDetails = () => {
 
     fetchPerformanceDetails(); // Invoca la función asincrónica.
   }, [performanceId]); // Depende del performanceId para reaccionar a los cambios de URL.
+
+  const handleBuyTickets = () => {
+    navigate(`/select-seats/${performanceId}`);
+  };
 
   // Renderiza mientras carga los datos.
   if (isLoading) return <div>Loading...</div>;
@@ -55,6 +60,9 @@ const PerformanceDetails = () => {
             <h1 className="performance-title">{performance[0].title}</h1>
             <p className="performance-date">{performance[0].date} </p>
             <p className="performance-description">{performance[0].description}</p>
+            <div className="performance-buy">
+              <button type="button" class="btn btn-primary" onClick={handleBuyTickets}>Comprar entradas</button>
+            </div>
             <div className="performance-video">
               <ReactPlayer
                 url={performance[0].video}

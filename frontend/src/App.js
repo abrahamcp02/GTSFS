@@ -10,6 +10,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import ProductDetails from './components/ProductDetails';
 import PerformanceDetails from './components/PerformanceDetails';
+import SeatSelectionPage from './components/SeatSelectionPage';
 import { UserProvider } from './context/UserContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'; // Asegúrate de que este archivo contiene los estilos mencionados
@@ -28,6 +29,7 @@ const App = () => {
               <Route path="/information" element={<Information />} />
               <Route path="/performances" element={<TheatricalPerformances />} />
               <Route path="/performances/:performanceId" element={<PerformanceDetails />} />
+              <Route path="/select-seats/:performanceId" element={<SeatSelectionPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
             </Routes>
