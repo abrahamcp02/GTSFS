@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import Login from './components/Login';
 import Register from './components/Register';
 import ProductDetails from './components/ProductDetails';
+import PerformanceDetails from './components/PerformanceDetails';
 import { UserProvider } from './context/UserContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'; // Asegúrate de que este archivo contiene los estilos mencionados
@@ -26,6 +27,7 @@ const App = () => {
               <Route path="/products/:productId" element={<ProductDetails />} />
               <Route path="/information" element={<Information />} />
               <Route path="/performances" element={<TheatricalPerformances />} />
+              <Route path="/performances/:performanceId" element={<PerformanceDetails />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
             </Routes>

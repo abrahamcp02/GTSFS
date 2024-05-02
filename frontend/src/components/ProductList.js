@@ -59,7 +59,7 @@ const ProductList = () => {
               </Link>
               <p className="product-price">{product.price} €</p>
               <div className="product-actions">
-                <button className="edit-button">✏️</button>
+                <button className="edit-button" onClick={handleEdit}>✏️</button>
                 <button className="delete-button">🗑️</button>
               </div>
             </div>
