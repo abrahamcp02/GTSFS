@@ -10,6 +10,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import ProductDetails from './components/ProductDetails';
 import PerformanceDetails from './components/PerformanceDetails';
+import NewsDetails from './components/NewsDetails';
 import SeatSelectionPage from './components/SeatSelectionPage';
 import { UserProvider } from './context/UserContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -26,6 +27,7 @@ const App = () => {
               <Route path="/" element={<HomePage />} />
               <Route path="/store" element={<Store />} />
               <Route path="/products/:productId" element={<ProductDetails />} />
+              <Route path="/news/:newsId" element={<NewsDetails />} />
               <Route path="/information" element={<Information />} />
               <Route path="/performances" element={<TheatricalPerformances />} />
               <Route path="/performances/:performanceId" element={<PerformanceDetails />} />
