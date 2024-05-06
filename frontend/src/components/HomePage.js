@@ -1,25 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import NewsItem from './NewsItem';
+import NewsList from './NewsList';
 import HeroSection from './HeroSection';
 import { jwtDecode } from "jwt-decode";
+import { fetchNews } from '../services/apiNewsService';
 
 
 const HomePage = () => {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    // Aquí podrías hacer una solicitud a tu backend para obtener las noticias
-    fetch('/api/news')
-      .then(response => response.json())
-      .then(data => setNews(data))
-      .catch(error => console.error('Error:', error));
+    const getAllNews = async () => {
+      const response = await fetchNews();
+      setNews(response.data);
+    };
+    getAllNews();
   }, []);
-
-  const logout = () => {
-    localStorage.removeItem('token');  // Elimina el token de localStorage
-    // Aquí también puedes redirigir al usuario a la pantalla de inicio de sesión o a la página principal
-    window.location.href = '/login'; // Redirecciona al usuario a la página de login
-  };
 
   var username = "vacio";
   var role = "vacio";
@@ -34,12 +29,7 @@ const HomePage = () => {
     return (
       <div>
       <HeroSection />
-        {news.map(item => (
-          <NewsItem key={item.id} title={item.title} content={item.content} />
-        ))}
-      <button onClick={logout} style={{ cursor: 'pointer' }}>
-        Cerrar Sesión
-      </button>
+      <NewsList news={news} />
       </div>
       
     );
@@ -49,12 +39,7 @@ const HomePage = () => {
       <div>
       <h1>Bienvenido {username}, eres {role}</h1>
       <HeroSection />
-        {news.map(item => (
-          <NewsItem key={item.id} title={item.title} content={item.content} />
-        ))}
-      <button onClick={logout} style={{ cursor: 'pointer' }}>
-        Cerrar Sesión
-      </button>
+      <NewsList news={news} />
       </div>
       
     );

@@ -11,7 +11,7 @@ const productRoutes = require('./routes/productRoutes');
 const performanceRoutes = require('./routes/performanceRoutes');
 const authRoutes = require('./routes/authRoutes');
 const seatRoutes = require('./routes/seatRoutes');
-
+const newsRoutes = require('./routes/newsRoutes');
 
 app.use(cors());
 
@@ -22,6 +22,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/performances', performanceRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/seats', seatRoutes);
+app.use('/api/news', newsRoutes);
 
 app.listen(port, () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);
