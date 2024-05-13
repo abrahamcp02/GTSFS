@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getSeats } from '../services/apiSeatService'; // Importa la función adecuada
+import { getSeatsByPerformanceId } from '../services/apiSeatService'; // Importa la función adecuada
 import SeatMap from './SeatMap';
 
 const SeatSelectionPage = () => {
@@ -8,7 +8,7 @@ const SeatSelectionPage = () => {
     const [seats, setSeats] = useState([]);
 
     useEffect(() => {
-        getSeats(performanceId).then(setSeats).catch(console.error);
+        getSeatsByPerformanceId(performanceId).then(setSeats).catch(console.error);
     }, [performanceId]);
 
     const handleSeatSelect = (seatId) => {

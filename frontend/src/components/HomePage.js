@@ -37,7 +37,6 @@ const HomePage = () => {
   else{
     return (
       <div>
-      <h1>Bienvenido {username}, eres {role}</h1>
       <HeroSection />
       <NewsList news={news} />
       </div>

@@ -11,6 +11,7 @@ import Register from './components/Register';
 import ProductDetails from './components/ProductDetails';
 import PerformanceDetails from './components/PerformanceDetails';
 import NewsDetails from './components/NewsDetails';
+import SeatConfiguration from './components/SeatConfiguration';
 import SeatSelectionPage from './components/SeatSelectionPage';
 import { UserProvider } from './context/UserContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -34,6 +35,8 @@ const App = () => {
               <Route path="/select-seats/:performanceId" element={<SeatSelectionPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/configure-seats" element={<SeatConfiguration />} />
+
             </Routes>
           </main>
           <Footer />

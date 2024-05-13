@@ -2,21 +2,49 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:5000/api';
 
-const getSeats = async (performanceId) => {
-    try {
-      const response = await axios.get(`${API_URL}/seats/${performanceId}`);
-      return response.data;  // Asegúrate de que el backend devuelva los datos en el formato correcto.
-    } catch (error) {
-      console.error('Error fetching seats:', error);
-      throw error;
-    }
-  };
+const getSeatsByPerformanceId = async (performanceId) => {
+  try {
+    const response = await axios.get(`${API_URL}/seats/${performanceId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching seats:', error);
+    throw error;
+  }
+};
+
+const getRowsByTheaterId = async (theaterId) => {
+  try {
+    const response = await axios.get(`${API_URL}/rows/${theaterId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching rows:', error);
+    throw error;
+  }
+};
+
 
 const reserveSeat = async (seatId, userId) => {
     return await axios.post(`${API_URL}/seats/reserve`, {
         seatId,
         userId
     });
-};
+  };
 
-export { getSeats, reserveSeat };
+const createRow = async (theaterId, row) => {
+    console.log("TheaterId en apiSeatService", theaterId);
+    return axios.post(`${API_URL}/theaters/${theaterId}/rows`, row, theaterId);
+};  
+  
+const createSeat = async (rowId, seat) => {
+  return axios.post(`${API_URL}/rows/${rowId}/seats`, seat);
+};
+  
+const deleteRow = async (rowId) => {
+    return await axios.delete(`${API_URL}/rows/${rowId}`);
+  };
+  
+const deleteSeat = async (seatId) => {
+    return await axios.delete(`${API_URL}/seats/${seatId}`);
+  };
+
+export { getSeatsByPerformanceId, reserveSeat, createRow, createSeat, deleteRow, deleteSeat, getRowsByTheaterId };

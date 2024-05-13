@@ -44,6 +44,9 @@ const NavBar = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/performances">Funciones Teatrales</Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/configure-seats">Configure Seats</Link>
+            </li>
           </ul>
           <ul className="navbar-nav">
             <li className="nav-item dropdown">
