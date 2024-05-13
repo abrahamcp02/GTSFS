@@ -1,0 +1,26 @@
+.row-container {
+    margin-bottom: 20px;
+  }
+  
+  .seat-container {
+    display: flex; /* Esto alinea todos los hijos (asientos) en línea */
+    align-items: wrap; /* Centra los items verticalmente */
+    margin-bottom: 10px;
+  }
+  
+  .seat {
+    margin-right: 0px; /* Espacio entre asientos */
+    padding: 5px;
+    margin-bottom: 10px;
+    background-color: #f0f0f0; /* Color de fondo para los asientos */
+  }
+  
+  .button-container {
+    margin-top: 10px;
+  }
+
+  #button{
+    border-radius: 0%;
+    outline: none;
+  }
+  

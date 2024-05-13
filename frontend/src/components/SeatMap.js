@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+
+
 const SeatMap = ({ seats, onSeatSelect }) => {
   if (!seats || !seats.length) {
     return <p>No seats available.</p>;

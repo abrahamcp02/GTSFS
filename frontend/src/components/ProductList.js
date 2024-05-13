@@ -44,51 +44,52 @@ const ProductList = () => {
 
   if (token) {
     const decoded = jwtDecode(token);
-    const username=decoded.username;
-
-    return (
-      <div className="product-list-container">
-        {products.map(product => (
-          <div key={product.id} className="product-item">
-            <div className="product-image-container">
-              <img src={product.image} alt={product.name} className="product-image" />
-            </div>
-            <div className="product-details">
-              <Link to={`/products/${product.id}`} className="product-name">
-                {product.name}
-              </Link>
-              <p className="product-price">{product.price} €</p>
-              <div className="product-actions">
-                <button className="edit-button" onClick={handleEdit}>✏️</button>
-                <button className="delete-button">🗑️</button>
+    const role=decoded.role;
+    console.log(role);
+    if(role==="admin"){
+      return (
+        <div className="product-list-container">
+          {products.map(product => (
+            <div key={product.id} className="product-item">
+              <div className="product-image-container">
+                <img src={product.image} alt={product.name} className="product-image" />
+              </div>
+              <div className="product-details">
+                <Link to={`/products/${product.id}`} className="product-name">
+                  {product.name}
+                </Link>
+                <p className="product-price">{product.price} €</p>
+                <div className="product-actions">
+                  <button className="edit-button" onClick={handleEdit}>✏️</button>
+                  <button className="delete-button">🗑️</button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
-    );
-  }
+          ))}
+        </div>
+      );
+    }
 
-  else{
-    return (
-      <div className="product-list-container">
-        {products.map(product => (
-          <div key={product.id} className="product-item">
-            <div className="product-image-container">
-              <img src={product.image} alt={product.name} className="product-image" />
+    else{
+      return (
+        <div className="product-list-container">
+          {products.map(product => (
+            <div key={product.id} className="product-item">
+              <div className="product-image-container">
+                <img src={product.image} alt={product.name} className="product-image" />
+              </div>
+              <div className="product-details">
+                <Link to={`/products/${product.id}`} className="product-name">
+                  {product.name}
+                </Link>
+                <p className="product-price">{product.price} €</p>
+              </div>
             </div>
-            <div className="product-details">
-              <Link to={`/products/${product.id}`} className="product-name">
-                {product.name}
-              </Link>
-              <p className="product-price">{product.price} €</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    );
+          ))}
+        </div>
+      );
+    }
   }
-
 };
 
 export default ProductList;
