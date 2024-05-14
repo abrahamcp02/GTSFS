@@ -13,6 +13,7 @@ import PerformanceDetails from './components/PerformanceDetails';
 import NewsDetails from './components/NewsDetails';
 import SeatConfiguration from './components/SeatConfiguration';
 import SeatSelectionPage from './components/SeatSelectionPage';
+import TheaterSelection from './components/TheaterSelection';
 import { UserProvider } from './context/UserContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'; // Asegúrate de que este archivo contiene los estilos mencionados
@@ -21,7 +22,7 @@ const App = () => {
   return (
     <Router>
       <div className="App">
-      <UserProvider>
+        <UserProvider>
           <NavBar />
           <main style={{ flex: 1 }}>
             <Routes>
@@ -35,8 +36,8 @@ const App = () => {
               <Route path="/select-seats/:performanceId" element={<SeatSelectionPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/configure-seats" element={<SeatConfiguration />} />
-
+              <Route path="/theater-selection" element={<TheaterSelection />} />
+              <Route path="/configure-seats/:theaterId" element={<SeatConfiguration />} />
             </Routes>
           </main>
           <Footer />

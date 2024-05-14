@@ -25,14 +25,14 @@ const SeatModel = require('../models/Seat');
   };
   
   exports.deleteSeat = (req, res) => {
-    SeatModel.delete(req.params.id, (error, result) => {
+    const seatId = req.params.id;
+    SeatModel.delete(seatId, (error, result) => {
       if (error) {
-          res.status(500).send({ message: error.message });
-      } else {
-          res.status(200).send(result);
+        return res.status(500).send({ message: error.message });
       }
-  });
-  }
+      res.status(200).send(result);
+    });
+  };
 
   exports.updateSeat = (req, res) => {
     SeatModel.updateSeat(req.params.seatId, req.body, (err, result) => {

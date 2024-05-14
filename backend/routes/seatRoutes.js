@@ -5,5 +5,6 @@ const router = express.Router();
 router.get('/:performanceId', SeatController.getSeats);
 router.post('/reserve/:performanceId', SeatController.reserveSeat);
 router.post('/', SeatController.createSeat);
+router.delete('/:id', SeatController.deleteSeat);
 
 module.exports = router;
