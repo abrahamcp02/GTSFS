@@ -39,6 +39,7 @@ const SeatConfiguration = ({ theaterId }) => {
       const row = rows.find(row => row.id === rowId);
       if (row) {
         const seatNumber = row.seats.length + 1;
+        console.log(`Creating seat for row ${rowId} with number ${seatNumber}`);
         const response = await createSeat(rowId, { number: seatNumber });
         const newSeat = response.data;
         console.log('New seat:', newSeat);

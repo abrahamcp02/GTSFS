@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const RowController = require('../controllers/rowController');
+const SeatController = require('../controllers/seatController');
 
-router.post('/', RowController.createRow);
+router.post('/:rowId/seats', SeatController.createSeat);
 
 module.exports = router;
