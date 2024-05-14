@@ -1,26 +1,59 @@
-.row-container {
-    margin-bottom: 20px;
-  }
-  
-  .seat-container {
-    display: flex; /* Esto alinea todos los hijos (asientos) en línea */
-    align-items: wrap; /* Centra los items verticalmente */
-    margin-bottom: 10px;
-  }
-  
-  .seat {
-    margin-right: 0px; /* Espacio entre asientos */
-    padding: 5px;
-    margin-bottom: 10px;
-    background-color: #f0f0f0; /* Color de fondo para los asientos */
-  }
-  
-  .button-container {
-    margin-top: 10px;
-  }
+.seat-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
-  #button{
-    border-radius: 0%;
-    outline: none;
-  }
-  
+.seat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background-color: #e9ecef;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 50px;
+}
+
+.mb-2 {
+  margin-bottom: 1rem;
+}
+
+.mb-3 {
+  margin-bottom: 1.5rem;
+}
+
+.mt-4 {
+  margin-top: 1.5rem;
+}
+
+.ms-2 {
+  margin-left: 0.5rem;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-white {
+  background-color: #e9ecef;
+  border: 1px solid #dee2e6;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}

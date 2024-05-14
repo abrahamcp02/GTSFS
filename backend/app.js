@@ -15,6 +15,7 @@ const seatPriceRoutes = require('./routes/seatPriceRoutes');
 const newsRoutes = require('./routes/newsRoutes');
 const rowRoutes = require('./routes/rowRoutes');
 const theaterRoutes = require('./routes/theaterRoutes');
+const ticketRoutes = require('./routes/ticketsRoutes'); 
 
 app.use(cors());
 
@@ -30,6 +31,7 @@ app.use('/api/rows', rowRoutes);
 app.use('/api/theaters', theaterRoutes);
 app.use('/api/seatPrices', seatPriceRoutes);
 app.use('/api', seatPriceRoutes);
+app.use('/api/tickets', ticketRoutes);
 
 
 app.listen(port, () => {

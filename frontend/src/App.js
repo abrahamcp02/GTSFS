@@ -15,6 +15,8 @@ import SeatConfiguration from './components/SeatConfiguration';
 import SeatSelectionPage from './components/SeatSelectionPage';
 import SeatPriceConfiguration from './components/SeatPriceConfiguration';
 import TheaterSelection from './components/TheaterSelection';
+import PrivateRoute from './components/PrivateRoute';
+import Cart from './components/Cart';
 import { UserProvider } from './context/UserContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'; // Asegúrate de que este archivo contiene los estilos mencionados
@@ -39,6 +41,7 @@ const App = () => {
               <Route path="/register" element={<Register />} />
               <Route path="/theater-selection" element={<TheaterSelection />} />
               <Route path="/configure-seats/:theaterId" element={<SeatConfiguration />} />
+              <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
               <Route path="/configure-seat-prices/:performanceId/:theaterId" element={<SeatPriceConfiguration />} />
             </Routes>
           </main>

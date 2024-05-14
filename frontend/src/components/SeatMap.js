@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { getPricesByPerformanceId } from '../services/apiSeatPriceService';
+import { addToCart } from '../services/apiTicketService';
+import { jwtDecode } from "jwt-decode";
 import './SeatMap.css';
 
-const SeatMap = ({ seats, onSeatSelect, performanceId }) => {
+const SeatMap = ({ seats, onSeatSelect, performanceId, userId }) => {
   const [seatPrices, setSeatPrices] = useState([]);
 
   useEffect(() => {
@@ -24,6 +26,20 @@ const SeatMap = ({ seats, onSeatSelect, performanceId }) => {
 
     fetchSeatPrices();
   }, [performanceId]);
+
+  const handleSeatSelect = async (seatId) => {
+    try {
+      const token = localStorage.getItem('token');      
+      if (token) {
+        const decoded = jwtDecode(token);
+        const userId=decoded.id;
+      await addToCart(userId, seatId, performanceId);
+      onSeatSelect(seatId);
+      }
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+    }
+  };
 
   const getSeatPrice = (seatId) => {
     const seatPrice = seatPrices.find(price => price.seat_id === seatId);
@@ -54,32 +70,34 @@ const SeatMap = ({ seats, onSeatSelect, performanceId }) => {
 
   return (
     <div className="seat-map container">
-      {sortedRows.map(row_number => (
-        <div key={row_number} className="row mb-3">
-          <div className="col-auto">
-            <div className="row-label">Fila {row_number}</div>
-          </div>
-          <div className="col">
-            <div className="seats d-flex flex-wrap">
-              {rows[row_number].map(seat => (
-                <OverlayTrigger
-                  key={seat.id}
-                  placement="top"
-                  overlay={renderTooltip(seat)}
-                >
-                  <button
-                    className={`btn seat ${seat.is_reserved ? 'btn-danger' : 'btn-success'} me-2 mb-2`}
-                    onClick={() => !seat.is_reserved && onSeatSelect(seat.id)}
-                    disabled={seat.is_reserved}
+      <div className="table-responsive">
+        <table className="table table-bordered">
+          <tbody>
+            {sortedRows.map(row_number => (
+              <tr key={row_number}>
+                <td className="row-label">Fila {row_number}</td>
+                {rows[row_number].map(seat => (
+                  <OverlayTrigger
+                    key={seat.id}
+                    placement="top"
+                    overlay={renderTooltip(seat)}
                   >
-                    {seat.seat_number}
-                  </button>
-                </OverlayTrigger>
-              ))}
-            </div>
-          </div>
-        </div>
-      ))}
+                    <td>
+                      <button
+                        className={`btn seat ${seat.is_reserved ? 'btn-danger' : 'btn-success'}`}
+                        onClick={() => !seat.is_reserved && handleSeatSelect(seat.id)}
+                        disabled={seat.is_reserved}
+                      >
+                        {seat.seat_number}
+                      </button>
+                    </td>
+                  </OverlayTrigger>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

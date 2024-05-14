@@ -12,5 +12,5 @@ const register = async (username, email, name, password) => {
 
   export {  
     login,
-    register
+    register,
   }
