@@ -1,21 +1,39 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { getPricesByPerformanceId } from '../services/apiSeatPriceService';
 import './SeatMap.css';
 
-const SeatMap = ({ seats, onSeatSelect }) => {
+const SeatMap = ({ seats, onSeatSelect, performanceId }) => {
+  const [seatPrices, setSeatPrices] = useState([]);
+
   useEffect(() => {
-    // Inicializar tooltips
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new window.bootstrap.Tooltip(tooltipTriggerEl);
-    });
-  }, []);
+    if (!performanceId) {
+      console.error('performanceId is undefined');
+      return;
+    }
+
+    const fetchSeatPrices = async () => {
+      try {
+        const prices = await getPricesByPerformanceId(performanceId);
+        console.log('Fetched seat prices:', prices);
+        setSeatPrices(prices);
+      } catch (error) {
+        console.error('Error fetching seat prices:', error);
+      }
+    };
+
+    fetchSeatPrices();
+  }, [performanceId]);
+
+  const getSeatPrice = (seatId) => {
+    const seatPrice = seatPrices.find(price => price.seat_id === seatId);
+    return seatPrice ? seatPrice.price : 0;
+  };
 
   if (!seats || !seats.length) {
     return <p>No seats available.</p>;
   }
 
-  // Organizando los asientos por número de fila
   const rows = seats.reduce((acc, seat) => {
     const { row_number } = seat;
     acc[row_number] = acc[row_number] || [];
@@ -30,7 +48,7 @@ const SeatMap = ({ seats, onSeatSelect }) => {
 
   const renderTooltip = (seat) => (
     <Tooltip id={`tooltip-${seat.id}`}>
-      {seat.is_reserved ? 'Ocupado' : `Asiento ${seat.seat_number} - $${seat.price}`}
+      {seat.is_reserved ? 'Ocupado' : `Asiento ${seat.seat_number} - $${getSeatPrice(seat.id)}`}
     </Tooltip>
   );
 

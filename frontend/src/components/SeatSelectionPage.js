@@ -19,7 +19,7 @@ const SeatSelectionPage = () => {
     return (
         <div>
             <h1>Seleccione sus asientos</h1>
-            <SeatMap seats={seats} onSeatSelect={handleSeatSelect} />
+            <SeatMap seats={seats} onSeatSelect={handleSeatSelect} performanceId={performanceId} />
         </div>
     );
 };

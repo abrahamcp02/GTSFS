@@ -1,6 +1,6 @@
 const db = require('../config/database');
 
-class SeatPriceModel {
+class SeatPrice {
   static getPricesByPerformanceId(performanceId, callback) {
     const query = `
       SELECT seat_prices.*, seats.row_id, seats.seat_number
@@ -37,6 +37,19 @@ class SeatPriceModel {
         }
     });
   }
+
+  static async findByPerformanceId(performanceId) {
+    const query = 'SELECT * FROM seat_prices WHERE performance_id = ?';
+    return new Promise((resolve, reject) => {
+      db.query(query, [performanceId], (error, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(results);
+        }
+      });
+    });
+  }
 }
 
-module.exports = SeatPriceModel;
+module.exports = SeatPrice;

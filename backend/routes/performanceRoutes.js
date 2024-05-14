@@ -17,4 +17,7 @@ router.put('/:id', PerformanceController.updatePerformance);
 // Ruta para eliminar una función
 router.delete('/:id', PerformanceController.deletePerformance);
 
+router.get('/:performanceId/seat-prices', PerformanceController.getSeatPrices);
+
+
 module.exports = router;
