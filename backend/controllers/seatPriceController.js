@@ -1,11 +1,15 @@
 const SeatPrice = require('../models/SeatPrice');
 
 // Obtener precios por ID de función
-exports.getPricesByPerformanceId = (req, res) => {
-  SeatPrice.getPricesByPerformanceId(req.params.performanceId, (err, results) => {
-    if (err) res.status(500).send({ message: err.message });
-    else res.send(results);
-  });
+exports.getSeatPricesByPerformanceId = async (req, res) => {
+  try {
+    const { performanceId } = req.params;
+    const seatPrices = await SeatPrice.findByPerformanceId(performanceId);
+    res.status(200).json(seatPrices);
+  } catch (error) {
+    console.error('Error fetching seat prices:', error);
+    res.status(500).json({ message: 'Error fetching seat prices' });
+  }
 };
 
 exports.createOrUpdatePrice = (req, res) => {

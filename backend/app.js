@@ -29,6 +29,7 @@ app.use('/api/news', newsRoutes);
 app.use('/api/rows', rowRoutes);
 app.use('/api/theaters', theaterRoutes);
 app.use('/api/seatPrices', seatPriceRoutes);
+app.use('/api', seatPriceRoutes);
 
 
 app.listen(port, () => {

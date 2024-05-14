@@ -1,4 +1,5 @@
 const Performance = require('../models/Performance');
+const db = require('../config/database');
 
 exports.getAllPerformances = (req, res) => {
   Performance.getAll((err, data) => {
@@ -38,5 +39,22 @@ exports.deletePerformance = (req, res) => {
   Performance.delete(req.params.id, (err, data) => {
     if (err) res.status(500).send({ message: err.message });
     else res.send({ message: "Performance deleted successfully!" });
+  });
+};
+
+exports.getSeatPrices = (req, res) => {
+  const { performanceId } = req.params;
+  const query = `
+    SELECT sp.seat_id, sp.price
+    FROM seat_prices sp
+    JOIN performances p ON sp.performance_id = p.id
+    WHERE p.id = ?
+  `;
+  db.query(query, [performanceId], (error, results) => {
+    if (error) {
+      return res.status(500).send({ message: error.message });
+    }
+    console.log('Seat prices fetched from DB:', results); // Debugging
+    res.send(results);
   });
 };
