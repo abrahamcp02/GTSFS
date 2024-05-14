@@ -1,41 +1,30 @@
 .seat-map {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   margin: 20px;
 }
 
-.row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 5px;
-}
-
 .row-label {
-  margin-right: 10px;
   font-weight: bold;
-  width: 60px;
+  padding: 5px 0;
 }
 
 .seats {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 
 .seat {
   padding: 5px 10px;
-  margin-right: 2px;
-  border: none;
   cursor: pointer;
-  color: white;
   font-weight: bold;
   text-align: center;
 }
 
-.occupied {
-  background-color: red;
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
 }
 
-.available {
-  background-color: green;
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
 }
