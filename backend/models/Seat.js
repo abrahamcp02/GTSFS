@@ -43,13 +43,13 @@ class SeatModel {
   static create(rowId, number, isReserved, callback) {
     const sql = "INSERT INTO seats (row_id, seat_number, is_reserved) VALUES (?, ?, ?)";
     db.query(sql, [rowId, number, isReserved], (error, results) => {
-        if (error) {
-            callback(error);
-        } else {
-            callback(null, { id: results.insertId, number, isReserved });
-        }
+      if (error) {
+        callback(error);
+      } else {
+        callback(null, { id: results.insertId, number, isReserved });
+      }
     });
-}
+  }
 
 static delete(seatId, callback) {
     const sql = "DELETE FROM seats WHERE id = ?";

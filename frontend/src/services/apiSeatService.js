@@ -36,6 +36,7 @@ const createRow = async (theaterId, row) => {
 };  
   
 const createSeat = async (rowId, seat) => {
+  console.log(`Creating seat for row ${rowId} with data:`, seat);
   return axios.post(`${API_URL}/rows/${rowId}/seats`, seat);
 };
   
