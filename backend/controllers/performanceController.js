@@ -54,7 +54,6 @@ exports.getSeatPrices = (req, res) => {
     if (error) {
       return res.status(500).send({ message: error.message });
     }
-    console.log('Seat prices fetched from DB:', results); // Debugging
     res.send(results);
   });
 };
