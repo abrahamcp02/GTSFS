@@ -48,7 +48,7 @@ const SeatMap = ({ seats, onSeatSelect, performanceId }) => {
 
   const renderTooltip = (seat) => (
     <Tooltip id={`tooltip-${seat.id}`}>
-      {seat.is_reserved ? 'Ocupado' : `Asiento ${seat.seat_number} - $${getSeatPrice(seat.id)}`}
+      {seat.is_reserved ? 'Ocupado' : `Asiento ${seat.seat_number} - ${getSeatPrice(seat.id)}€`}
     </Tooltip>
   );
 
