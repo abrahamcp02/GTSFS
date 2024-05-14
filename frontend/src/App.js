@@ -13,6 +13,7 @@ import PerformanceDetails from './components/PerformanceDetails';
 import NewsDetails from './components/NewsDetails';
 import SeatConfiguration from './components/SeatConfiguration';
 import SeatSelectionPage from './components/SeatSelectionPage';
+import SeatPriceConfiguration from './components/SeatPriceConfiguration';
 import TheaterSelection from './components/TheaterSelection';
 import { UserProvider } from './context/UserContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -38,6 +39,7 @@ const App = () => {
               <Route path="/register" element={<Register />} />
               <Route path="/theater-selection" element={<TheaterSelection />} />
               <Route path="/configure-seats/:theaterId" element={<SeatConfiguration />} />
+              <Route path="/configure-seat-prices/:performanceId/:theaterId" element={<SeatPriceConfiguration />} />
             </Routes>
           </main>
           <Footer />
