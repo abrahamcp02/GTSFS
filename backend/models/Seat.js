@@ -68,6 +68,17 @@ static delete(seatId, callback) {
     db.query(query, [row_id, number, seatId], callback);
   }
 
+  static getSeatsByRowIds(rowIds, callback) {
+    const sql = 'SELECT * FROM seats WHERE row_id IN (?)';
+    db.query(sql, [rowIds], (error, results) => {
+      if (error) {
+        callback(error);
+      } else {
+        callback(null, results);
+      }
+    });
+  }
+
 }
 
 module.exports = SeatModel;

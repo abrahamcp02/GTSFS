@@ -14,8 +14,8 @@ const getSeatsByPerformanceId = async (performanceId) => {
 
 const getRowsByTheaterId = async (theaterId) => {
   try {
-    const response = await axios.get(`${API_URL}/rows/${theaterId}`);
-    return response.data;
+    const response = await axios.get(`${API_URL}/rows/theater/${theaterId}`);
+    return response;
   } catch (error) {
     console.error('Error fetching rows:', error);
     throw error;

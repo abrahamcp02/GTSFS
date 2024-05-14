@@ -21,6 +21,17 @@ class Row {
             }
         });
     }
+
+    static getRowsByTheaterId(theaterId, callback) {
+        const sql = 'SELECT * FROM rows WHERE theater_id = ?';
+        db.query(sql, [theaterId], (error, results) => {
+          if (error) {
+            callback(error);
+          } else {
+            callback(null, results);
+          }
+        });
+      }
 }
 
 module.exports = Row;
