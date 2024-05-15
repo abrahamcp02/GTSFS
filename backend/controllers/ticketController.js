@@ -1,6 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 const Cart = require('../models/Cart');
 const Ticket = require('../models/Ticket');
+const Seat = require('../models/Seat');
 
 exports.addToCart = async (req, res) => {
   const { userId, seatId, performanceId } = req.body;
@@ -57,7 +58,7 @@ exports.purchaseTickets = async (req, res) => {
   const { userId } = req.body;
 
   try {
-    Cart.getCartItems(userId, (err, cartItems) => {
+    Cart.getCartItems(userId, async (err, cartItems) => {
       if (err) {
         return res.status(500).json({ message: 'Error fetching cart items', error: err });
       }
@@ -71,17 +72,25 @@ exports.purchaseTickets = async (req, res) => {
         price: item.price
       }));
 
-      Ticket.purchaseTickets(tickets, (err, result) => {
+      Ticket.purchaseTickets(tickets, async (err, result) => {
         if (err) {
           return res.status(500).json({ message: 'Error purchasing tickets', error: err });
         }
 
-        Cart.clearCart(userId, (err) => {
+        // Marcar asientos como ocupados
+        const seatIds = tickets.map(ticket => ticket.seat_id);
+        Seat.markSeatsAsOccupied(seatIds, (err) => {
           if (err) {
-            return res.status(500).json({ message: 'Error clearing cart', error: err });
+            return res.status(500).json({ message: 'Error marking seats as occupied', error: err });
           }
 
-          res.status(200).json({ message: 'Tickets purchased successfully', tickets });
+          Cart.clearCart(userId, (err) => {
+            if (err) {
+              return res.status(500).json({ message: 'Error clearing cart', error: err });
+            }
+
+            res.status(200).json({ message: 'Tickets purchased successfully', tickets });
+          });
         });
       });
     });

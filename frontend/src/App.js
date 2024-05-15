@@ -1,5 +1,3 @@
-import { UserProvider } from './context/UserContext';
-// App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NavBar from './components/NavBar';
@@ -19,10 +17,14 @@ import SeatPriceConfiguration from './components/SeatPriceConfiguration';
 import TheaterSelection from './components/TheaterSelection';
 import PrivateRoute from './components/PrivateRoute';
 import Cart from './components/Cart';
+import { UserProvider } from './context/UserContext';
 import MyTickets from './components/MyTickets';
 import EventDetails from './components/EventCard';
+import EditProduct from './components/EditProduct';
+import DeleteProduct from './components/DeleteProduct';
+import CreateProduct from './components/CreateProduct';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css'; // Asegúrate de que este archivo contiene los estilos mencionados
+import './App.css';
 
 const App = () => {
   return (
@@ -46,8 +48,11 @@ const App = () => {
               <Route path="/configure-seats/:theaterId" element={<SeatConfiguration />} />
               <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
               <Route path="/configure-seat-prices/:performanceId/:theaterId" element={<SeatPriceConfiguration />} />
-              <Route path="/my-tickets" element={<PrivateRoute><MyTickets /></PrivateRoute>} />
+              <Route path="/my-tickets" element={<MyTickets />} />
               <Route path="/event-details/:performanceId" element={<EventDetails />} />
+              <Route path="/edit-product/:productId" element={<PrivateRoute><EditProduct /></PrivateRoute>} />
+              <Route path="/delete-product/:productId" element={<PrivateRoute><DeleteProduct /></PrivateRoute>} />
+              <Route path="/create-product" element={<PrivateRoute><CreateProduct /></PrivateRoute>} />
             </Routes>
           </main>
           <Footer />
