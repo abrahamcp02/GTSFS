@@ -30,3 +30,9 @@
   background-color: #dc3545;
   border-color: #dc3545;
 }
+
+.btn-warning {
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: #fff;
+}
