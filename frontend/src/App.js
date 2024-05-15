@@ -22,6 +22,9 @@ import MyTickets from './components/MyTickets';
 import EventDetails from './components/EventCard';
 import EditProduct from './components/EditProduct';
 import DeleteProduct from './components/DeleteProduct';
+import EditPerformance from './components/EditPerformance';
+import DeletePerformance from './components/DeletePerformance';
+import CreatePerformance from './components/CreatePerformance';
 import CreateProduct from './components/CreateProduct';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -52,7 +55,10 @@ const App = () => {
               <Route path="/event-details/:performanceId" element={<EventDetails />} />
               <Route path="/edit-product/:productId" element={<PrivateRoute><EditProduct /></PrivateRoute>} />
               <Route path="/delete-product/:productId" element={<PrivateRoute><DeleteProduct /></PrivateRoute>} />
-              <Route path="/create-product" element={<PrivateRoute><CreateProduct /></PrivateRoute>} />
+              <Route path="/edit-performance/:performanceId" element={<PrivateRoute><EditPerformance /></PrivateRoute>} />
+              <Route path="/delete-performance/:performanceId" element={<PrivateRoute><DeletePerformance /></PrivateRoute>} />              
+              <Route path="/create-performance" element={<PrivateRoute><CreatePerformance /></PrivateRoute>} />              
+              <Route path="/create-product" element={<PrivateRoute><CreateProduct /></PrivateRoute>} />              
             </Routes>
           </main>
           <Footer />
