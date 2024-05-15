@@ -7,9 +7,9 @@ class CartItem {
     db.query(query, values, callback);
   }
 
-  static removeFromCart(userId, seatId, callback) {
-    const query = 'DELETE FROM cart WHERE user_id = ? AND seat_id = ?';
-    const values = [userId, seatId];
+  static removeFromCart(itemId, callback) {
+    const query = 'DELETE FROM cart WHERE id = ?';
+    const values = [itemId];
     db.query(query, values, callback);
   }
 
@@ -18,8 +18,10 @@ class CartItem {
       SELECT 
         c.id,
         s.seat_number,
+        s.id as seat_id,
         r.row_number,
         p.title AS performance_title,
+        p.id as performance_id,
         p.performance_date AS performance_date,
         sp.price
       FROM cart c
@@ -31,7 +33,6 @@ class CartItem {
     `;
     db.query(query, [userId], (error, results) => {
       if (error) {
-        console.error('Error fetching cart items from database:', error);  // Log detailed error
         return callback(error, null);
       }
       return callback(null, results);

@@ -14,4 +14,6 @@ router.get('/cart/:userId', TicketController.getCartItems);
 // Ruta para comprar tickets
 router.post('/purchase', TicketController.purchaseTickets);
 
+router.get('/my-tickets/:userId', TicketController.getUserTickets);
+
 module.exports = router;

@@ -12,9 +12,9 @@ const addToCart = async (userId, seatId, performanceId) => {
   }
 };
 
-const removeFromCart = async (userId, seatId) => {
+const removeFromCart = async (itemId) => {
   try {
-    const response = await axios.post(`${API_URL}/remove-from-cart`, { userId, seatId });
+    const response = await axios.post(`${API_URL}/remove-from-cart`, { itemId });
     return response;
   } catch (error) {
     console.error('Error removing from cart:', error);
@@ -42,4 +42,18 @@ const purchaseTickets = async (userId) => {
   }
 };
 
-export { addToCart, getCart, purchaseTickets, removeFromCart };
+const getMyTickets = async (userId) => {
+  const token = localStorage.getItem('token');
+  const config = {
+    headers: { Authorization: `Bearer ${token}` }
+  };
+  try {
+    const response = await axios.get(`${API_URL}/my-tickets/${userId}`, config);
+    return response;
+  } catch (error) {
+    console.error('Error fetching tickets:', error);
+    throw error;
+  }
+};;
+
+export { addToCart, getCart, purchaseTickets, removeFromCart, getMyTickets };
