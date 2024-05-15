@@ -48,7 +48,8 @@ const PerformanceList = () => {
             <Link to={`/performances/${performance.id}`} className="performance-name">
               {performance.title}
             </Link>
-            <p className="performance_date">{performance.performance_date}</p>
+            <p className="performance_date">{new Date(performance.performance_date).toLocaleDateString()}</p>
+            <p className="performance_hour">{new Date(performance.performance_date).toLocaleTimeString()}</p>
             <div className="performance-actions">
               <button className="edit-button">✏️</button>
               <button className="delete-button">🗑️</button>

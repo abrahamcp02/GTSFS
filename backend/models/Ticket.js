@@ -20,10 +20,15 @@ class Ticket {
 
   static getUserTickets(userId, callback) {
     const query = `
-      SELECT t.*, s.row_id, s.seat_number, p.title AS performance_name, p.performance_date AS performance_date
+      SELECT t.*, s.row_id, 
+      s.seat_number, 
+      p.title AS performance_name,
+      p.performance_date AS performance_date,
+      u.name AS user_name
       FROM tickets t
       JOIN seats s ON t.seat_id = s.id
       JOIN performances p ON t.performance_id = p.id
+      JOIN users u ON t.user_id = u.id
       WHERE t.user_id = ?
     `;
     db.query(query, [userId], callback);

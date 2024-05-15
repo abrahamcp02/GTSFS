@@ -46,7 +46,7 @@ const NavBar = () => {
               <Link className="nav-link" to="/performances">Funciones Teatrales</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="theater-selection">Configure Theaters</Link>
+              <Link className="nav-link" to="theater-selection">Administrar Teatros</Link>
             </li>
           </ul>
           <ul className="navbar-nav">
