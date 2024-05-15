@@ -10,11 +10,11 @@ class Product {
   }
 
   static create(product, callback) {
-    db.query('INSERT INTO products (name, price) VALUES (?, ?)', [product.name, product.price], callback);
+    db.query('INSERT INTO products (name, price, description, image) VALUES (?, ?)', [product.name, product.price, product.description, product.image], callback);
   }
 
   static update(id, product, callback) {
-    db.query('UPDATE products SET name = ?, price = ? WHERE id = ?', [product.name, product.price, id], callback);
+    db.query('UPDATE products SET name = ?, price = ?, description = ?, image = ? WHERE id = ?', [product.name, product.price, product.description, product.image, id], callback);
   }
 
   static delete(id, callback) {

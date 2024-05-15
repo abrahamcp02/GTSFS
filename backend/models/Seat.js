@@ -79,6 +79,11 @@ static delete(seatId, callback) {
     });
   }
 
+  static markSeatsAsOccupied(seatIds, callback) {
+    const query = 'UPDATE seats SET is_reserved = 1 WHERE id IN (?)';
+    db.query(query, [seatIds], callback);
+  }
+
 }
 
 module.exports = SeatModel;

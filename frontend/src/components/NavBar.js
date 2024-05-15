@@ -5,7 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import "bootstrap";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaTicketAlt } from "react-icons/fa";
 
 
 const NavBar = () => {
@@ -51,7 +51,10 @@ const NavBar = () => {
           </ul>
           <ul className="navbar-nav">
           <li className="nav-item">
-              <Link className="nav-link" to="cart"><FaShoppingCart />   Carrito</Link>
+              <Link className="nav-link" to="cart"><FaTicketAlt />  Carrito Entradas</Link>
+            </li>
+            <li className='nav-item'>
+              <Link className="nav-link" to="cart"><FaShoppingCart />  Carrito Productos</Link>
             </li>
             <li className="nav-item dropdown">
               <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -59,6 +62,7 @@ const NavBar = () => {
               </button>
               <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                 <li><Link className="dropdown-item" to="/profile">Mi perfil</Link></li>
+                <li><Link className="dropdown-item" to="/my-tickets">Mis Entradas</Link></li>
                 <li><Link className="dropdown-item" onClick={handleLogout}>Cerrar sesión</Link></li>
               </ul>
             </li>

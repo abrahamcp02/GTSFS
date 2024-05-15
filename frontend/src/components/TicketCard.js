@@ -80,7 +80,7 @@ const TicketCard = ({ ticket }) => {
         <h3 className="card-title">{ticket.performance_title}</h3>
         <div className="ticket-detail mb-2"><strong>Representación:</strong> {ticket.performance_name}</div>
         <div className="ticket-detail mb-2"><strong>Fecha:</strong> {new Date(ticket.performance_date).toLocaleDateString()}</div>
-        <div className="ticket-detail mb-2"><strong>Hora:</strong> {ticket.performance_time}</div>
+        <div className="ticket-detail mb-2"><strong>Hora:</strong> {new Date(ticket.performance_date).toLocaleTimeString()}</div>
         <div className="ticket-detail mb-2"><strong>Asiento:</strong> {ticket.seat_number}</div>
         <div className="ticket-detail mb-2"><strong>Fila:</strong> {ticket.row_number}</div>
         <div className="ticket-detail mb-2"><strong>Precio:</strong> {ticket.price}€</div>

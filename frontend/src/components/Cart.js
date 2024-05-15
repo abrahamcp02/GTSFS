@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getCart, purchaseTickets, removeFromCart } from '../services/apiTicketService';
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 import './Cart.css';
 
 const Cart = () => {
@@ -40,7 +40,7 @@ const Cart = () => {
         const decoded = jwtDecode(token);
         const userId = decoded.id;
         await purchaseTickets(userId);
-        navigate('/confirmation');
+        navigate('/my-tickets');
       }
     } catch (error) {
       console.error('Error purchasing tickets:', error);
@@ -53,7 +53,7 @@ const Cart = () => {
       if (token) {
         const decoded = jwtDecode(token);
         const userId = decoded.id;
-        await removeFromCart(itemId);
+        await removeFromCart(userId, itemId);
         fetchCart(); // Refrescar el carrito después de eliminar un artículo
       }
     } catch (error) {
@@ -68,14 +68,15 @@ const Cart = () => {
         <>
           <ul className="list-group">
             {cartItems.map(item => (
-              <li key={item.id} className="list-group-item">
-                <div>Asiento: {item.seat_number}</div>
-                <div>Fila: {item.row_number}</div>
-                <div>Función: {item.performance_title}</div>
-                <div>Fecha: {new Date(item.performance_date).toLocaleDateString()}</div>
-                <div>Hora: {item.performance_time}</div>
-                <div>Precio: {item.price}€</div>
-                <button className="btn btn-danger" onClick={() => handleRemove(item.seat_id)}>Eliminar</button>
+              <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                  <div><strong>Asiento:</strong> {item.seat_number} <strong>Fila:</strong> {item.row_number}</div>
+                  <div><strong>Función:</strong> {item.performance_title}</div>
+                  <div><strong>Fecha:</strong> {new Date(item.performance_date).toLocaleDateString()}</div>
+                  <div><strong>Hora:</strong> {new Date(item.performance_date).toLocaleTimeString()}</div>
+                  <div><strong>Precio:</strong> {item.price}€</div>
+                </div>
+                <button className="btn btn-danger btn-sm" onClick={() => handleRemove(item.id)}>Eliminar</button>
               </li>
             ))}
           </ul>

@@ -24,11 +24,13 @@ class Ticket {
       s.seat_number, 
       p.title AS performance_name,
       p.performance_date AS performance_date,
-      u.name AS user_name
+      u.name AS user_name,
+      r.row_number AS row_number
       FROM tickets t
       JOIN seats s ON t.seat_id = s.id
       JOIN performances p ON t.performance_id = p.id
       JOIN users u ON t.user_id = u.id
+      JOIN rows r ON s.row_id = r.id
       WHERE t.user_id = ?
     `;
     db.query(query, [userId], callback);

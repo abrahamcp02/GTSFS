@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import ProductList from './ProductList'; // Componente para listar productos
-import ShoppingCart from './ShoppingCart'; // Componente para el carrito de compras
 
 
 const Store = () => {
@@ -18,7 +17,6 @@ const Store = () => {
         <div>
             <h1>Tienda de Merchandising</h1>
             <ProductList products={products} />
-            <ShoppingCart />
         </div>
     );
 };
