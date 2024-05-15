@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { getPricesByPerformanceId } from '../services/apiSeatPriceService';
-import { addToCart } from '../services/apiTicketService';
+import { addToCart, removeFromCart } from '../services/apiTicketService';
 import { jwtDecode } from "jwt-decode";
 import './SeatMap.css';
 
-const SeatMap = ({ seats, onSeatSelect, performanceId, userId }) => {
+const SeatMap = ({ seats, onSeatSelect, performanceId }) => {
   const [seatPrices, setSeatPrices] = useState([]);
+  const [selectedSeats, setSelectedSeats] = useState([]);
 
   useEffect(() => {
     if (!performanceId) {
@@ -17,7 +18,6 @@ const SeatMap = ({ seats, onSeatSelect, performanceId, userId }) => {
     const fetchSeatPrices = async () => {
       try {
         const prices = await getPricesByPerformanceId(performanceId);
-        console.log('Fetched seat prices:', prices);
         setSeatPrices(prices);
       } catch (error) {
         console.error('Error fetching seat prices:', error);
@@ -32,12 +32,19 @@ const SeatMap = ({ seats, onSeatSelect, performanceId, userId }) => {
       const token = localStorage.getItem('token');      
       if (token) {
         const decoded = jwtDecode(token);
-        const userId=decoded.id;
-      await addToCart(userId, seatId, performanceId);
-      onSeatSelect(seatId);
+        const userId = decoded.id;
+
+        if (selectedSeats.includes(seatId)) {
+          await removeFromCart(userId, seatId);
+          setSelectedSeats(selectedSeats.filter(id => id !== seatId));
+        } else {
+          await addToCart(userId, seatId, performanceId);
+          setSelectedSeats([...selectedSeats, seatId]);
+        }
+        onSeatSelect(seatId);
       }
     } catch (error) {
-      console.error('Error adding to cart:', error);
+      console.error('Error adding/removing to/from cart:', error);
     }
   };
 
@@ -84,7 +91,7 @@ const SeatMap = ({ seats, onSeatSelect, performanceId, userId }) => {
                   >
                     <td>
                       <button
-                        className={`btn seat ${seat.is_reserved ? 'btn-danger' : 'btn-success'}`}
+                        className={`btn seat ${seat.is_reserved ? 'btn-danger' : selectedSeats.includes(seat.id) ? 'btn-warning' : 'btn-success'}`}
                         onClick={() => !seat.is_reserved && handleSeatSelect(seat.id)}
                         disabled={seat.is_reserved}
                       >
