@@ -1,0 +1,45 @@
+.event-card {
+    display: flex;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .event-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .event-date {
+    background-color: #007bff;
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .event-day {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .event-month {
+    font-size: 16px;
+  }
+  
+  .event-info {
+    padding: 20px;
+  }
+  
+  .event-info h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .event-info p {
+    margin: 5px 0;
+    color: #666;
+  }
+  

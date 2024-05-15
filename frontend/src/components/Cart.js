@@ -35,20 +35,25 @@ const Cart = () => {
 
   const handlePurchase = async () => {
     try {
-      await purchaseTickets();
-      navigate('/confirmation');
+      const token = localStorage.getItem('token');
+      if (token) {
+        const decoded = jwtDecode(token);
+        const userId = decoded.id;
+        await purchaseTickets(userId);
+        navigate('/confirmation');
+      }
     } catch (error) {
       console.error('Error purchasing tickets:', error);
     }
   };
 
-  const handleRemove = async (cartItemId) => {
+  const handleRemove = async (itemId) => {
     try {
       const token = localStorage.getItem('token');
       if (token) {
         const decoded = jwtDecode(token);
         const userId = decoded.id;
-        await removeFromCart(userId, cartItemId);
+        await removeFromCart(itemId);
         fetchCart(); // Refrescar el carrito después de eliminar un artículo
       }
     } catch (error) {
@@ -67,7 +72,7 @@ const Cart = () => {
                 <div>Asiento: {item.seat_number}</div>
                 <div>Fila: {item.row_number}</div>
                 <div>Función: {item.performance_title}</div>
-                <div>Fecha: {item.performance_date}</div>
+                <div>Fecha: {new Date(item.performance_date).toLocaleDateString()}</div>
                 <div>Hora: {item.performance_time}</div>
                 <div>Precio: {item.price}€</div>
                 <button className="btn btn-danger" onClick={() => handleRemove(item.seat_id)}>Eliminar</button>
