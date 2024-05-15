@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { getPricesByPerformanceId } from '../services/apiSeatPriceService';
-import { addToCart, removeFromCart } from '../services/apiTicketService';
+import { addToCart, removeFromCart, getCart } from '../services/apiTicketService';
 import { jwtDecode } from "jwt-decode";
 import './SeatMap.css';
 
@@ -24,22 +24,52 @@ const SeatMap = ({ seats, onSeatSelect, performanceId }) => {
       }
     };
 
+    const fetchCartItems = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (token) {
+          const decoded = jwtDecode(token);
+          const userId = decoded.id;
+          const response = await getCart(userId);
+          console.log('Fetched cart items:', response.data); // Depuración
+
+          if (response.data && response.data.length > 0) {
+            console.log('Cart item structure:', response.data[0]); // Verificar la estructura de un item
+
+            const seatIdsInCart = response.data.map(item => ({ 
+              seat_number: parseInt(item.seat_number), 
+              row_number: parseInt(item.row_number)
+            }));
+            setSelectedSeats(seatIdsInCart);
+            console.log('Selected seats:', seatIdsInCart); // Depuración
+          } else {
+            console.warn('No items in the cart or incorrect data structure');
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching cart items:', error);
+      }
+    };
+
     fetchSeatPrices();
+    fetchCartItems();
   }, [performanceId]);
 
-  const handleSeatSelect = async (seatId) => {
+  const handleSeatSelect = async (seatId, seatNumber, rowNumber) => {
     try {
-      const token = localStorage.getItem('token');      
+      const token = localStorage.getItem('token');
       if (token) {
         const decoded = jwtDecode(token);
         const userId = decoded.id;
 
-        if (selectedSeats.includes(seatId)) {
+        const seat = { seat_number: seatNumber, row_number: rowNumber };
+
+        if (selectedSeats.some(s => s.seat_number === seatNumber && s.row_number === rowNumber)) {
           await removeFromCart(userId, seatId);
-          setSelectedSeats(selectedSeats.filter(id => id !== seatId));
+          setSelectedSeats(selectedSeats.filter(s => !(s.seat_number === seatNumber && s.row_number === rowNumber)));
         } else {
           await addToCart(userId, seatId, performanceId);
-          setSelectedSeats([...selectedSeats, seatId]);
+          setSelectedSeats([...selectedSeats, seat]);
         }
         onSeatSelect(seatId);
       }
@@ -91,8 +121,8 @@ const SeatMap = ({ seats, onSeatSelect, performanceId }) => {
                   >
                     <td>
                       <button
-                        className={`btn seat ${seat.is_reserved ? 'btn-danger' : selectedSeats.includes(seat.id) ? 'btn-warning' : 'btn-success'}`}
-                        onClick={() => !seat.is_reserved && handleSeatSelect(seat.id)}
+                        className={`btn seat ${seat.is_reserved ? 'btn-danger' : selectedSeats.some(s => s.seat_number === parseInt(seat.seat_number) && s.row_number === parseInt(seat.row_number)) ? 'btn-warning' : 'btn-success'}`}
+                        onClick={() => !seat.is_reserved && handleSeatSelect(seat.id, parseInt(seat.seat_number), parseInt(seat.row_number))}
                         disabled={seat.is_reserved}
                       >
                         {seat.seat_number}
