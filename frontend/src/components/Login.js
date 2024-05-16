@@ -44,7 +44,6 @@ const Login = () => {
         />
         <button type="submit">Iniciar Sesión</button>
         <div className="login-links">
-          <a href="#">Olvidé mi contraseña</a>
           <Link to={`/register`}>Crear Usuario</Link>
         </div>
       </form>

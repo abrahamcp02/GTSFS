@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getProductCart, purchaseProducts, removeFromProductCart } from '../services/apiProductCartService';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import './Cart.css'; // Puedes reutilizar los estilos del carrito
 
 const ProductCart = () => {
@@ -70,13 +70,13 @@ const ProductCart = () => {
         <>
           <ul className="list-group">
             {cartItems.map(item => (
-              <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
+              <li key={item.itemId} className="list-group-item d-flex justify-content-between align-items-center">
                 <div>
                   <div><strong>Producto:</strong> {item.name}</div>
                   <div><strong>Descripción:</strong> {item.description}</div>
                   <div><strong>Precio:</strong> {item.price}€</div>
                 </div>
-                <button className="btn btn-danger btn-sm" onClick={() => handleRemove(item.id)}>Eliminar</button>
+                <button className="btn btn-danger btn-sm" onClick={() => handleRemove(item.itemId)}>Eliminar</button>
               </li>
             ))}
           </ul>

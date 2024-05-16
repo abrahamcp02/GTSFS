@@ -20,24 +20,12 @@ class ProductCart {
       JOIN products p ON pc.product_id = p.id
       WHERE pc.user_id = ?
     `;
-    db.query(query, [userId], (err, results) => {
-      if (err) {
-        callback(err, null);
-      } else {
-        callback(null, results);
-      }
-    });
+    db.query(query, [userId], callback);
   }
 
   static clearCart(userId, callback) {
     const query = 'DELETE FROM product_cart WHERE user_id = ?';
-    db.query(query, [userId], (error, results) => {
-      if (error) {
-        console.error('Error clearing cart:', error);
-        return callback(error);
-      }
-      return callback(null, results);
-    });
+    db.query(query, [userId], callback);
   }
 
   static getProductCartCount(userId) {

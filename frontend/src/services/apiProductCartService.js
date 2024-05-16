@@ -24,7 +24,7 @@ const addToProductCart = async (userId, productId) => {
 
 const removeFromProductCart = async (userId, itemId) => {
   try {
-    const response = await axios.post(`${API_URL}/remove-from-cart`, {userId, itemId});
+    const response = await axios.post(`${API_URL}/remove-from-cart`, { userId, itemId });
     return response;
   } catch (error) {
     console.error('Error removing from product cart:', error);
@@ -34,7 +34,7 @@ const removeFromProductCart = async (userId, itemId) => {
 
 const purchaseProducts = async (userId) => {
   try {
-    const response = await axios.post(`${API_URL}/purchase`, { userId });
+    const response = await axios.post(`${API_URL}/purchase-products`, { userId });
     return response;
   } catch (error) {
     console.error('Error purchasing products:', error);
