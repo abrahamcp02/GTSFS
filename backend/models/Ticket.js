@@ -40,6 +40,19 @@ class Ticket {
     const query = 'DELETE FROM tickets WHERE id = ?';
     db.query(query, [ticketId], callback);
   }
+
+  static removeFromCart(userId, itemId) {
+    return new Promise((resolve, reject) => {
+      const query = 'DELETE FROM cart WHERE user_id = ? AND id = ?';
+      db.query(query, [userId, itemId], (error, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(results);
+        }
+      });
+    });
+  }
 }
 
 module.exports = Ticket;

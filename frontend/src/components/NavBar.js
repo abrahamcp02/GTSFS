@@ -54,7 +54,7 @@ const NavBar = () => {
               <Link className="nav-link" to="cart"><FaTicketAlt />  Carrito Entradas</Link>
             </li>
             <li className='nav-item'>
-              <Link className="nav-link" to="cart"><FaShoppingCart />  Carrito Productos</Link>
+              <Link className="nav-link" to="product-cart"><FaShoppingCart />  Carrito Productos</Link>
             </li>
             <li className="nav-item dropdown">
               <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -63,6 +63,7 @@ const NavBar = () => {
               <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                 <li><Link className="dropdown-item" to="/profile">Mi perfil</Link></li>
                 <li><Link className="dropdown-item" to="/my-tickets">Mis Entradas</Link></li>
+                <li><Link className="dropdown-item" to="/my-orders">Mis Pedidos</Link></li>
                 <li><Link className="dropdown-item" onClick={handleLogout}>Cerrar sesión</Link></li>
               </ul>
             </li>

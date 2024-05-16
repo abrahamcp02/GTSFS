@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { getPricesByPerformanceId } from '../services/apiSeatPriceService';
 import { addToCart, removeFromCart, getCart } from '../services/apiTicketService';
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from 'jwt-decode';
 import './SeatMap.css';
 
 const SeatMap = ({ seats, onSeatSelect, performanceId }) => {
   const [seatPrices, setSeatPrices] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!performanceId) {
@@ -31,17 +33,17 @@ const SeatMap = ({ seats, onSeatSelect, performanceId }) => {
           const decoded = jwtDecode(token);
           const userId = decoded.id;
           const response = await getCart(userId);
-          console.log('Fetched cart items:', response.data); // Depuración
+          console.log('Fetched cart items:', response.data);
 
           if (response.data && response.data.length > 0) {
-            console.log('Cart item structure:', response.data[0]); // Verificar la estructura de un item
+            console.log('Cart item structure:', response.data[0]);
 
-            const seatIdsInCart = response.data.map(item => ({ 
-              seat_number: parseInt(item.seat_number), 
+            const seatIdsInCart = response.data.map(item => ({
+              seat_number: parseInt(item.seat_number),
               row_number: parseInt(item.row_number)
             }));
             setSelectedSeats(seatIdsInCart);
-            console.log('Selected seats:', seatIdsInCart); // Depuración
+            console.log('Selected seats:', seatIdsInCart);
           } else {
             console.warn('No items in the cart or incorrect data structure');
           }
@@ -58,21 +60,24 @@ const SeatMap = ({ seats, onSeatSelect, performanceId }) => {
   const handleSeatSelect = async (seatId, seatNumber, rowNumber) => {
     try {
       const token = localStorage.getItem('token');
-      if (token) {
-        const decoded = jwtDecode(token);
-        const userId = decoded.id;
-
-        const seat = { seat_number: seatNumber, row_number: rowNumber };
-
-        if (selectedSeats.some(s => s.seat_number === seatNumber && s.row_number === rowNumber)) {
-          await removeFromCart(userId, seatId);
-          setSelectedSeats(selectedSeats.filter(s => !(s.seat_number === seatNumber && s.row_number === rowNumber)));
-        } else {
-          await addToCart(userId, seatId, performanceId);
-          setSelectedSeats([...selectedSeats, seat]);
-        }
-        onSeatSelect(seatId);
+      if (!token) {
+        navigate('/login');
+        return;
       }
+
+      const decoded = jwtDecode(token);
+      const userId = decoded.id;
+
+      const seat = { seat_number: seatNumber, row_number: rowNumber };
+
+      if (selectedSeats.some(s => s.seat_number === seatNumber && s.row_number === rowNumber)) {
+        await removeFromCart(userId, seatId);
+        setSelectedSeats(selectedSeats.filter(s => !(s.seat_number === seatNumber && s.row_number === rowNumber)));
+      } else {
+        await addToCart(userId, seatId, performanceId);
+        setSelectedSeats([...selectedSeats, seat]);
+      }
+      onSeatSelect(seatId);
     } catch (error) {
       console.error('Error adding/removing to/from cart:', error);
     }

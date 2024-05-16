@@ -6,10 +6,15 @@ const fetchProducts = async () => {
   return await axios.get(API_URL);
 };
 
-const fetchProductById = async (id) => {
-  return await axios.get(`${API_URL}/${id}`);
+const fetchProductById = async (productId) => {
+  try {
+    const response = await axios.get(`${API_URL}/${productId}`);
+    return response;
+  } catch (error) {
+    console.error('Error fetching product by id:', error);
+    throw error;
+  }
 };
-
 const createProduct = async (product) => {
   return await axios.post(API_URL, product);
 };
@@ -22,10 +27,21 @@ const deleteProduct = async (id) => {
   return await axios.delete(`${API_URL}/${id}`);
 };
 
+const addToProductCart = async (userId, productId) => {
+  try {
+    const response = await axios.post(`${API_URL}/product-cart`, { userId, productId });
+    return response;
+  } catch (error) {
+    console.error('Error adding to product cart:', error);
+    throw error;
+  }
+};
+
 export {
   fetchProducts,
   fetchProductById,
   createProduct,
   updateProduct,
   deleteProduct,
+  addToProductCart
 };

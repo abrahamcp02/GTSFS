@@ -5,7 +5,6 @@ const cors = require('cors');
 const app = express();
 const port = 5000;
 
-
 // Importar rutas
 const productRoutes = require('./routes/productRoutes');
 const performanceRoutes = require('./routes/performanceRoutes');
@@ -15,10 +14,11 @@ const seatPriceRoutes = require('./routes/seatPriceRoutes');
 const newsRoutes = require('./routes/newsRoutes');
 const rowRoutes = require('./routes/rowRoutes');
 const theaterRoutes = require('./routes/theaterRoutes');
-const ticketRoutes = require('./routes/ticketsRoutes'); 
+const ticketRoutes = require('./routes/ticketsRoutes');
+const productCartRoutes = require('./routes/productCartRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 
 app.use(cors());
-
 app.use(bodyParser.json());
 
 // Rutas
@@ -30,9 +30,9 @@ app.use('/api/news', newsRoutes);
 app.use('/api/rows', rowRoutes);
 app.use('/api/theaters', theaterRoutes);
 app.use('/api/seatPrices', seatPriceRoutes);
-app.use('/api', seatPriceRoutes);
 app.use('/api/tickets', ticketRoutes);
-
+app.use('/api/product-cart', productCartRoutes);
+app.use('/api/orders', orderRoutes);
 
 app.listen(port, () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getCart, purchaseTickets, removeFromCart } from '../services/apiTicketService';
-import { jwtDecode } from 'jwt-decode';
-import './Cart.css';
+import { getProductCart, purchaseProducts, removeFromProductCart } from '../services/apiProductCartService';
+import {jwtDecode} from 'jwt-decode';
+import './Cart.css'; // Puedes reutilizar los estilos del carrito
 
-const Cart = () => {
+const ProductCart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const navigate = useNavigate();
@@ -19,9 +19,11 @@ const Cart = () => {
       if (token) {
         const decoded = jwtDecode(token);
         const userId = decoded.id;
-        const response = await getCart(userId);
-        setCartItems(response.data);
-        calculateTotalPrice(response.data);
+        const response = await getProductCart(userId);
+        console.log('Response data:', response.data); // Log para ver los datos recibidos
+        const items = Array.isArray(response.data) ? response.data : [];
+        setCartItems(items);
+        calculateTotalPrice(items);
       }
     } catch (error) {
       console.error('Error fetching cart:', error);
@@ -39,11 +41,12 @@ const Cart = () => {
       if (token) {
         const decoded = jwtDecode(token);
         const userId = decoded.id;
-        await purchaseTickets(userId);
-        navigate('/my-tickets');
+        await purchaseProducts(userId);
+        alert('Productos comprados exitosamente');
+        navigate('/my-products');
       }
     } catch (error) {
-      console.error('Error purchasing tickets:', error);
+      console.error('Error purchasing products:', error);
     }
   };
 
@@ -53,9 +56,7 @@ const Cart = () => {
       if (token) {
         const decoded = jwtDecode(token);
         const userId = decoded.id;
-        console.log(userId);
-        console.log(itemId);
-        await removeFromCart(userId, itemId);
+        await removeFromProductCart(userId, itemId);
         fetchCart(); // Refrescar el carrito después de eliminar un artículo
       }
     } catch (error) {
@@ -65,17 +66,15 @@ const Cart = () => {
 
   return (
     <div className="cart container">
-      <h2>Carrito</h2>
+      <h2>Carrito de Productos</h2>
       {cartItems.length > 0 ? (
         <>
           <ul className="list-group">
             {cartItems.map(item => (
               <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
                 <div>
-                  <div><strong>Asiento:</strong> {item.seat_number} <strong>Fila:</strong> {item.row_number}</div>
-                  <div><strong>Función:</strong> {item.performance_title}</div>
-                  <div><strong>Fecha:</strong> {new Date(item.performance_date).toLocaleDateString()}</div>
-                  <div><strong>Hora:</strong> {new Date(item.performance_date).toLocaleTimeString()}</div>
+                  <div><strong>Producto:</strong> {item.name}</div>
+                  <div><strong>Descripción:</strong> {item.description}</div>
                   <div><strong>Precio:</strong> {item.price}€</div>
                 </div>
                 <button className="btn btn-danger btn-sm" onClick={() => handleRemove(item.id)}>Eliminar</button>
@@ -94,4 +93,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default ProductCart;
