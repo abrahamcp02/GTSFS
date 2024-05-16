@@ -63,7 +63,7 @@ const PerformanceDetails = () => {
             <div className="performance-buy">
               <button type="button" class="btn btn-primary" onClick={handleBuyTickets}>Comprar entradas</button>
             </div>
-            <div className="performance-video">
+            <div className="ratio ratio-16x9">
               <ReactPlayer
                 url={performance[0].video}
                 controls

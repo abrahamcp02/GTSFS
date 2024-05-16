@@ -1,0 +1,41 @@
+/* OrderCard.css */
+
+.order-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 20px;
+    flex: 1 1 300px;
+}
+
+.order-info {
+    text-align: left;
+    flex-grow: 1;
+}
+
+.order-info h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    color: #333;
+}
+
+.order-info p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.order-image-container {
+    flex-shrink: 0;
+    margin-left: 20px;
+}
+
+.order-image {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: contain;
+    border-radius: 8px;
+}

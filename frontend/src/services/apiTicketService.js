@@ -12,9 +12,9 @@ const addToCart = async (userId, seatId, performanceId) => {
   }
 };
 
-const removeFromCart = async (itemId) => {
+const removeFromCart = async (userId, itemId) => {
   try {
-    const response = await axios.post(`${API_URL}/remove-from-cart`, { itemId });
+    const response = await axios.post(`${API_URL}/remove-from-cart`, { userId, itemId });
     return response;
   } catch (error) {
     console.error('Error removing from cart:', error);

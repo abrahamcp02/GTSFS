@@ -21,18 +21,12 @@ exports.addToCart = async (req, res) => {
 };
 
 exports.removeFromCart = async (req, res) => {
-  const { itemId } = req.body;
-
+  const { userId, itemId } = req.body;
   try {
-    Cart.removeFromCart(itemId, (err, result) => {
-      if (err) {
-        console.error('Error removing item from cart:', err);
-        return res.status(500).json({ message: 'Error removing item from cart', error: err });
-      }
-      res.status(200).json({ message: 'Item removed from cart' });
-    });
+    await Ticket.removeFromCart(userId, itemId);
+    res.status(200).json({ message: 'Item removed from cart' });
   } catch (error) {
-    console.error('Unexpected error removing item from cart:', error);
+    console.error('Error removing item from cart:', error);
     res.status(500).json({ message: 'Error removing item from cart', error });
   }
 };
