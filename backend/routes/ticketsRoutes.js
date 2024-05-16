@@ -16,5 +16,8 @@ router.post('/purchase', TicketController.purchaseTickets);
 
 router.get('/my-tickets/:userId', TicketController.getUserTickets);
 
+router.get('/cart-count/:userId', TicketController.getCartCount);
+
+
 
 module.exports = router;

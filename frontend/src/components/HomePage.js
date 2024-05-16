@@ -28,7 +28,6 @@ const HomePage = () => {
   if(username==="vacio"){
     return (
       <div>
-      <HeroSection />
       <NewsList news={news} />
       </div>
       
@@ -37,7 +36,6 @@ const HomePage = () => {
   else{
     return (
       <div>
-      <HeroSection />
       <NewsList news={news} />
       </div>
       

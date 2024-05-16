@@ -127,3 +127,14 @@ exports.getUserTickets = async (req, res) => {
     res.status(500).json({ message: 'Server error', error });
   }
 };
+
+exports.getCartCount = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const count = await Ticket.getCartCount(userId);
+    res.status(200).json({ count });
+  } catch (error) {
+    console.error('Error fetching cart count:', error);
+    res.status(500).json({ message: 'Error fetching cart count', error });
+  }
+};

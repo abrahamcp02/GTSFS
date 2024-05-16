@@ -39,6 +39,19 @@ class ProductCart {
       return callback(null, results);
     });
   }
+
+  static getProductCartCount(userId) {
+    return new Promise((resolve, reject) => {
+      const query = 'SELECT COUNT(*) AS count FROM product_cart WHERE user_id = ?';
+      db.query(query, [userId], (error, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(results[0].count);
+        }
+      });
+    });
+  }
 }
 
 module.exports = ProductCart;

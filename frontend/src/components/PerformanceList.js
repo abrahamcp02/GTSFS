@@ -40,7 +40,7 @@ const PerformanceList = () => {
             className="btn btn-success"
             onClick={() => navigate('/create-performance')}
           >
-            Crear Representación
+            Crear Función Teatral
           </button>
         </div>
       )}

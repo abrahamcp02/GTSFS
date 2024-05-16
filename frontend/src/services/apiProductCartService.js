@@ -42,4 +42,14 @@ const purchaseProducts = async (userId) => {
   }
 };
 
-export { getProductCart, addToProductCart, removeFromProductCart, purchaseProducts };
+const getProductCartCount = async (userId) => {
+  try {
+    const response = await axios.get(`${API_URL}/product-cart-count/${userId}`);
+    return response.data.count;
+  } catch (error) {
+    console.error('Error fetching product cart count:', error);
+    throw error;
+  }
+};
+
+export { getProductCart, addToProductCart, removeFromProductCart, purchaseProducts, getProductCartCount };
