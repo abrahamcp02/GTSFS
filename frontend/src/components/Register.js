@@ -19,7 +19,7 @@ function Register() {
     } catch (error) {
       console.error('Error en el registro:', error.message);
       if (error.response && error.response.status === 409) {
-        setError('El usuario ya existe. Por favor, elige otro nombre de usuario o email.');
+        setError(error.response.data.message);
       } else {
         setError('Error en el registro. Por favor, inténtalo de nuevo más tarde.');
       }
