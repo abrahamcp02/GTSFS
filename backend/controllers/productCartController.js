@@ -86,3 +86,14 @@ exports.purchaseProducts = async (req, res) => {
     res.status(500).json({ message: 'Error purchasing products', error });
   }
 };
+
+exports.getProductCartCount = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const count = await ProductCart.getProductCartCount(userId);
+    res.status(200).json({ count });
+  } catch (error) {
+    console.error('Error fetching product cart count:', error);
+    res.status(500).json({ message: 'Error fetching product cart count', error });
+  }
+};

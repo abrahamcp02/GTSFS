@@ -54,6 +54,16 @@ const getMyTickets = async (userId) => {
     console.error('Error fetching tickets:', error);
     throw error;
   }
-};;
+};
 
-export { addToCart, getCart, purchaseTickets, removeFromCart, getMyTickets };
+const getCartCount = async (userId) => {
+  try {
+    const response = await axios.get(`${API_URL}/cart-count/${userId}`);
+    return response.data.count;
+  } catch (error) {
+    console.error('Error fetching cart count:', error);
+    throw error;
+  }
+};
+
+export { addToCart, getCart, purchaseTickets, removeFromCart, getMyTickets, getCartCount };

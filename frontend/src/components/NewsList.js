@@ -4,6 +4,9 @@ import { fetchNews } from '../services/apiNewsService';
 import { jwtDecode } from "jwt-decode";
 import './NewsList.css';
 
+var role = "user";
+var user = "";
+
 const NewsList = () => {
   const [news, setNews] = useState([]);
   const userToken = localStorage.getItem('token');
@@ -22,8 +25,10 @@ const NewsList = () => {
 
   if (token) {
     const decoded = jwtDecode(token);
-    const username=decoded.username;
+    role=decoded.role;
+  }
 
+  if (role=="admin"){
     return (
       <div className="news-list-container">
         {news.map(news => (
@@ -46,7 +51,7 @@ const NewsList = () => {
     );
   }
 
-  else{
+  else {
     return (
       <div className="news-list-container">
         {news.map(news => (

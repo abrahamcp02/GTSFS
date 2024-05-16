@@ -1,6 +1,6 @@
 .navbar a {
         text-decoration: none; /* Esto quitará el subrayado de todos los enlaces en el navbar */
-        color: inherit; /* Esto hará que los enlaces usen el color de texto heredado del elemento padre */
+        color: rgb(138, 137, 137); /* Esto hará que los enlaces usen el color de texto heredado del elemento padre */
         /* Agrega aquí otros estilos que quieras aplicar a los enlaces */
     }
 
@@ -27,4 +27,17 @@
   .login-button:hover {
     background-color: #0056b3; /* Un azul más oscuro para el efecto hover */
   }
+
+  .nav-link {
+  position: relative;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.badge {
+  position: absolute;
+  top: -10px;
+  right: -20px;
+  font-size: 12px;
+}
   

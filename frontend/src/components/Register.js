@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { register } from '../services/apiAuthService';
 import './Register.css'; // Asegúrate de que el archivo CSS esté correctamente vinculado
 
-
 function Register() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -10,15 +9,20 @@ function Register() {
   const [name, setName] = useState('');
   const [error, setError] = useState('');
 
-
   const handleRegister = async (e) => {
     e.preventDefault();
+    setError(''); // Clear previous errors
     try {
       const response = await register(username, email, name, password);
       console.log(response);
       window.location.href = '/';
     } catch (error) {
       console.error('Error en el registro:', error.message);
+      if (error.response && error.response.status === 409) {
+        setError('El usuario ya existe. Por favor, elige otro nombre de usuario o email.');
+      } else {
+        setError('Error en el registro. Por favor, inténtalo de nuevo más tarde.');
+      }
     }
   };
 

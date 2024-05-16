@@ -42,8 +42,7 @@ const ProductCart = () => {
         const decoded = jwtDecode(token);
         const userId = decoded.id;
         await purchaseProducts(userId);
-        alert('Productos comprados exitosamente');
-        navigate('/my-products');
+        navigate('/my-orders');
       }
     } catch (error) {
       console.error('Error purchasing products:', error);

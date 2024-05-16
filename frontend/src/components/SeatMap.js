@@ -61,6 +61,7 @@ const SeatMap = ({ seats, onSeatSelect, performanceId }) => {
     try {
       const token = localStorage.getItem('token');
       if (!token) {
+        // Redirige a la página de login si el usuario no está autenticado
         navigate('/login');
         return;
       }
@@ -71,9 +72,11 @@ const SeatMap = ({ seats, onSeatSelect, performanceId }) => {
       const seat = { seat_number: seatNumber, row_number: rowNumber };
 
       if (selectedSeats.some(s => s.seat_number === seatNumber && s.row_number === rowNumber)) {
+        // Si el asiento ya está seleccionado, lo eliminamos del carrito
         await removeFromCart(userId, seatId);
         setSelectedSeats(selectedSeats.filter(s => !(s.seat_number === seatNumber && s.row_number === rowNumber)));
       } else {
+        // Si el asiento no está seleccionado, lo agregamos al carrito
         await addToCart(userId, seatId, performanceId);
         setSelectedSeats([...selectedSeats, seat]);
       }

@@ -65,7 +65,7 @@ const Cart = () => {
 
   return (
     <div className="cart container">
-      <h2>Carrito</h2>
+      <h2>Carrito de Entradas</h2>
       {cartItems.length > 0 ? (
         <>
           <ul className="list-group">
@@ -78,7 +78,6 @@ const Cart = () => {
                   <div><strong>Hora:</strong> {new Date(item.performance_date).toLocaleTimeString()}</div>
                   <div><strong>Precio:</strong> {item.price}€</div>
                 </div>
-                <button className="btn btn-danger btn-sm" onClick={() => handleRemove(item.id)}>Eliminar</button>
               </li>
             ))}
           </ul>

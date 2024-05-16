@@ -43,7 +43,7 @@ class Ticket {
 
   static removeFromCart(userId, itemId) {
     return new Promise((resolve, reject) => {
-      const query = 'DELETE FROM cart WHERE user_id = ? AND id = ?';
+      const query = 'DELETE FROM cart WHERE user_id = ? AND seat_id = ?';
       db.query(query, [userId, itemId], (error, results) => {
         if (error) {
           reject(error);
@@ -53,6 +53,21 @@ class Ticket {
       });
     });
   }
+
+  static getCartCount(userId) {
+    return new Promise((resolve, reject) => {
+      const query = 'SELECT COUNT(*) AS count FROM cart WHERE user_id = ?';
+      db.query(query, [userId], (error, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(results[0].count);
+        }
+      });
+    });
+  }
 }
+
+
 
 module.exports = Ticket;
