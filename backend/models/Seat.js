@@ -4,16 +4,12 @@ class SeatModel {
   // Obtener asientos por ID de performance
   static getSeatsByPerformanceId(performanceId, callback) {
     const query = `
-    SELECT 
-      seats.*,
-      rows.row_number AS row_number,
-      (tickets.id IS NOT NULL) AS is_occupied
+    SELECT seats.*, rows.row_number AS row_number, (seat_prices.is_reserved IS NOT NULL) AS is_occupied
     FROM seats
     JOIN rows ON seats.row_id = rows.id
-    LEFT JOIN tickets ON tickets.seat_id = seats.id AND tickets.performance_id = ?
+    LEFT JOIN seat_prices ON seat_prices.seat_id = seats.id AND seat_prices.performance_id = ?
     JOIN theaters ON rows.theater_id = theaters.id
-    WHERE theaters.id = (
-      SELECT theater_id FROM performances WHERE id = ?
+    WHERE theaters.id = (SELECT theater_id FROM performances WHERE id = ?)
   )
     `;
     db.query(query, [performanceId, performanceId], callback);
@@ -30,10 +26,10 @@ class SeatModel {
 
   static getSeatsByPerformanceId(performanceId, callback) {
     const query = `
-      SELECT seats.*, rows.row_number AS row_number, (tickets.id IS NOT NULL) AS is_occupied
+      SELECT seats.*, rows.row_number AS row_number, (seat_prices.is_reserved IS NOT NULL) AS is_occupied
       FROM seats
       JOIN rows ON seats.row_id = rows.id
-      LEFT JOIN tickets ON tickets.seat_id = seats.id AND tickets.performance_id = ?
+      LEFT JOIN seat_prices ON seat_prices.seat_id = seats.id AND seat_prices.performance_id = ?
       JOIN theaters ON rows.theater_id = theaters.id
       WHERE theaters.id = (SELECT theater_id FROM performances WHERE id = ?)
     `;
@@ -41,7 +37,7 @@ class SeatModel {
   }
 
   static create(rowId, number, isReserved, callback) {
-    const sql = "INSERT INTO seats (row_id, seat_number, is_reserved) VALUES (?, ?, ?)";
+    const sql = "INSERT INTO seats (row_id, seat_number) VALUES (?, ?)";
     db.query(sql, [rowId, number, isReserved], (error, results) => {
       if (error) {
         callback(error);
@@ -80,7 +76,7 @@ static delete(seatId, callback) {
   }
 
   static markSeatsAsOccupied(seatIds, callback) {
-    const query = 'UPDATE seats SET is_reserved = 1 WHERE id IN (?)';
+    const query = 'UPDATE seat_prices SET is_reserved = 1 WHERE seat_id IN (?)';
     db.query(query, [seatIds], callback);
   }
 

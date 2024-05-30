@@ -54,7 +54,7 @@ const TicketPDF = ({ ticket }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.header}>
-        <Image style={styles.logo} src="https://i.ibb.co/nc5H4X0/LOGO-GRUPO-DE-TEATRO-SAN-FRANCISCO-SOLANO.png" />
+        <Image style={styles.logo} src="https://i.ibb.co/3TPQ5dV/LOGO-GRUPO-DE-TEATRO-SAN-FRANCIS.png" />
         <Image style={styles.qrCode} src={`https://api.qrserver.com/v1/create-qr-code/?data=${ticket.serial_number}&size=100x100`} />
       </View>
       <Text style={styles.eventTitle}>{ticket.performance_title}</Text>

@@ -61,7 +61,6 @@ const SeatMap = ({ seats, onSeatSelect, performanceId }) => {
     try {
       const token = localStorage.getItem('token');
       if (!token) {
-        // Redirige a la página de login si el usuario no está autenticado
         navigate('/login');
         return;
       }
@@ -72,11 +71,9 @@ const SeatMap = ({ seats, onSeatSelect, performanceId }) => {
       const seat = { seat_number: seatNumber, row_number: rowNumber };
 
       if (selectedSeats.some(s => s.seat_number === seatNumber && s.row_number === rowNumber)) {
-        // Si el asiento ya está seleccionado, lo eliminamos del carrito
         await removeFromCart(userId, seatId);
         setSelectedSeats(selectedSeats.filter(s => !(s.seat_number === seatNumber && s.row_number === rowNumber)));
       } else {
-        // Si el asiento no está seleccionado, lo agregamos al carrito
         await addToCart(userId, seatId, performanceId);
         setSelectedSeats([...selectedSeats, seat]);
       }
@@ -86,9 +83,10 @@ const SeatMap = ({ seats, onSeatSelect, performanceId }) => {
     }
   };
 
-  const getSeatPrice = (seatId) => {
+  const getSeatPriceAndReservationStatus = (seatId) => {
+    const seat = seats.find(seat => seat.id === seatId);
     const seatPrice = seatPrices.find(price => price.seat_id === seatId);
-    return seatPrice ? seatPrice.price : 0;
+    return seatPrice ? { price: seatPrice.price, is_reserved: seat.is_occupied } : { price: 0, is_reserved: seat.is_occupied };
   };
 
   if (!seats || !seats.length) {
@@ -107,11 +105,14 @@ const SeatMap = ({ seats, onSeatSelect, performanceId }) => {
     rows[row_number].sort((a, b) => parseInt(a.seat_number) - parseInt(b.seat_number));
   });
 
-  const renderTooltip = (seat) => (
-    <Tooltip id={`tooltip-${seat.id}`}>
-      {seat.is_reserved ? 'Ocupado' : `Asiento ${seat.seat_number} - ${getSeatPrice(seat.id)}€`}
-    </Tooltip>
-  );
+  const renderTooltip = (seat) => {
+    const { price, is_reserved } = getSeatPriceAndReservationStatus(seat.id);
+    return (
+      <Tooltip id={`tooltip-${seat.id}`}>
+        {is_reserved ? 'Ocupado' : `Asiento ${seat.seat_number} - ${price}€`}
+      </Tooltip>
+    );
+  };
 
   return (
     <div className="seat-map container">
@@ -121,23 +122,26 @@ const SeatMap = ({ seats, onSeatSelect, performanceId }) => {
             {sortedRows.map(row_number => (
               <tr key={row_number}>
                 <td className="row-label">Fila {row_number}</td>
-                {rows[row_number].map(seat => (
-                  <OverlayTrigger
-                    key={seat.id}
-                    placement="top"
-                    overlay={renderTooltip(seat)}
-                  >
-                    <td>
-                      <button
-                        className={`btn seat ${seat.is_reserved ? 'btn-danger' : selectedSeats.some(s => s.seat_number === parseInt(seat.seat_number) && s.row_number === parseInt(seat.row_number)) ? 'btn-warning' : 'btn-success'}`}
-                        onClick={() => !seat.is_reserved && handleSeatSelect(seat.id, parseInt(seat.seat_number), parseInt(seat.row_number))}
-                        disabled={seat.is_reserved}
-                      >
-                        {seat.seat_number}
-                      </button>
-                    </td>
-                  </OverlayTrigger>
-                ))}
+                {rows[row_number].map(seat => {
+                  const { is_reserved } = getSeatPriceAndReservationStatus(seat.id);
+                  return (
+                    <OverlayTrigger
+                      key={seat.id}
+                      placement="top"
+                      overlay={renderTooltip(seat)}
+                    >
+                      <td>
+                        <button
+                          className={`btn seat ${is_reserved ? 'btn-danger' : selectedSeats.some(s => s.seat_number === parseInt(seat.seat_number) && s.row_number === parseInt(seat.row_number)) ? 'btn-warning' : 'btn-success'}`}
+                          onClick={() => !is_reserved && handleSeatSelect(seat.id, parseInt(seat.seat_number), parseInt(seat.row_number))}
+                          disabled={is_reserved}
+                        >
+                          {seat.seat_number}
+                        </button>
+                      </td>
+                    </OverlayTrigger>
+                  );
+                })}
               </tr>
             ))}
           </tbody>
