@@ -56,7 +56,7 @@ const ProductDetails = () => {
         <h1 className="product-title">{product.name}</h1>
         <p className="product-price">{product.price} €</p>
         <p className="product-description">{product.description}</p>
-        <button className="btn btn-primary" onClick={handleAddToCart}>Add to Cart</button>
+        <button className="btn btn-primary" onClick={handleAddToCart}>Añadir al carrito</button>
       </div>
     </div>
   );

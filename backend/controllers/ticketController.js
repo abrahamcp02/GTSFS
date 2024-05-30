@@ -67,9 +67,6 @@ exports.purchaseTickets = async (req, res) => {
       }));
 
       Ticket.purchaseTickets(tickets, async (err, result) => {
-        if (err) {
-          return res.status(500).json({ message: 'Error purchasing tickets', error: err });
-        }
 
         // Marcar asientos como ocupados
         const seatIds = tickets.map(ticket => ticket.seat_id);

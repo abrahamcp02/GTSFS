@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchProductById, updateProduct } from '../services/apiService';
-import './EditProduct.css'; // Asegúrate de crear este archivo para los estilos
+import './EditProduct.css';
 
 const EditProduct = () => {
   const { productId } = useParams();
@@ -23,7 +23,7 @@ const EditProduct = () => {
 
   const handleSave = async () => {
     await updateProduct(productId, product);
-    navigate('/store'); // Navega de vuelta a la lista de productos después de guardar
+    navigate('/store');
   };
 
   return (
@@ -50,7 +50,7 @@ const EditProduct = () => {
         />
       </div>
       <div className="form-group">
-        <label>Imagen:</label>
+        <label>Imagen (URL):</label>
         <input
           type="text"
           name="image"
