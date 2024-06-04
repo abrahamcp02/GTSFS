@@ -26,6 +26,9 @@ import Cart from './components/Cart';
 import MyTickets from './components/MyTickets';
 import EventDetails from './components/EventCard';
 import MyOrders from './components/MyOrders';
+import CreateNews from './components/CreateNews';
+import EditNews from './components/EditNews';
+import DeleteNews from './components/DeleteNews';
 import { UserProvider } from './context/UserContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -56,9 +59,12 @@ const App = () => {
               <Route path="/event-details/:performanceId" element={<EventDetails />} />
               <Route path="/edit-performance/:performanceId" element={<PrivateRoute><EditPerformance /></PrivateRoute>} />
               <Route path="/edit-product/:productId" element={<PrivateRoute><EditProduct /></PrivateRoute>} />
+              <Route path="/edit-news/:newsId" element={<PrivateRoute><EditNews /></PrivateRoute>} />
               <Route path="/create-performance" element={<PrivateRoute><CreatePerformance /></PrivateRoute>} />
               <Route path="/create-product" element={<PrivateRoute><CreateProduct /></PrivateRoute>} />
+              <Route path="/create-news" element={<PrivateRoute><CreateNews /></PrivateRoute>} />
               <Route path="/delete-product/:productId" element={<PrivateRoute><DeleteProduct /></PrivateRoute>} />
+              <Route path="/delete-news/:newsId" element={<PrivateRoute><DeleteNews /></PrivateRoute>} />
               <Route path="/delete-performance/:performanceId" element={<PrivateRoute><DeletePerformance /></PrivateRoute>} />
               <Route path="/my-orders" element={<MyOrders />} />              
             </Routes>
