@@ -15,6 +15,7 @@ const fetchProductById = async (productId) => {
     throw error;
   }
 };
+
 const createProduct = async (product) => {
   return await axios.post(API_URL, product);
 };

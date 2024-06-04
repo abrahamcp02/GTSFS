@@ -10,11 +10,11 @@ class New {
   }
 
   static create(news, callback) {
-    db.query('INSERT INTO news (title, content, image, user_id) VALUES (?, ?, ?, ?,)', [news.title, news.content, news.image, news.user_id,], callback);
+    db.query('INSERT INTO news (title, content, image) VALUES (?, ?, ?)', [news.title, news.content, news.image], callback);
   }
 
-  static update(news, id, callback) {
-    db.query('UPDATE news SET title = ?, content = ?, image = ?, user_id = ? WHERE id = ?', [news.title, news.content, news.image, news.user_id,  id], callback);
+  static update(id, news, callback) {
+    db.query('UPDATE news SET title = ?, content = ?, image = ? WHERE id = ?', [news.title, news.content, news.image, id], callback);
   }
 
   static delete(id, callback) {
