@@ -1,22 +1,24 @@
 const db = require('../config/database');
 
 class Performance {
-  static getAll(callback) {
-    db.query('SELECT * FROM performances', (error, results) => {
-      if (error) {
-        callback(error, null);
-      } else {
-        callback(null, results);
-      }
-    });
-  }
-
   static getById(id, callback) {
-    db.query('SELECT * FROM performances WHERE id = ?', [id], callback);
+    const query = `
+      SELECT performances.*, theaters.address, theaters.name 
+      FROM performances 
+      JOIN theaters ON performances.theater_id = theaters.id 
+      WHERE performances.id = ?`;
+    db.query(query, [id], callback);
+  }
+  
+  static getAll(callback) {
+    const query = `
+      SELECT performances.*, theaters.address, theaters.name 
+      FROM performances 
+      JOIN theaters ON performances.theater_id = theaters.id`;
+    db.query(query, callback);
   }
 
   static create(performance, callback) {
-    // Asegúrate de que todos los parámetros necesarios están incluidos
     db.query('INSERT INTO performances (title, description, performance_date, theater_id, image, video) VALUES (?, ?, ?, ?, ?, ?)',
       [performance.title, performance.description, performance.performance_date, performance.theater_id, performance.image, performance.video], callback);
   }

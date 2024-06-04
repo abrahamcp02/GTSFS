@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getCart, purchaseTickets, removeFromCart } from '../services/apiTicketService';
 import { jwtDecode } from 'jwt-decode';
-import './Cart.css';
+import './styles/Cart.css';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);

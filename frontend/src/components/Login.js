@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Login.css'; // Asegúrate de que el archivo CSS esté correctamente vinculado
+import './styles/Login.css'; // Asegúrate de que el archivo CSS esté correctamente vinculado
 import { login } from '../services/apiAuthService';
 import { Link } from 'react-router-dom'; // Asegúrate de importar Link aquí
 

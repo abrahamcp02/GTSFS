@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import NewsList from './NewsList';
-import HeroSection from './HeroSection';
 import { jwtDecode } from "jwt-decode";
 import { fetchNews } from '../services/apiNewsService';
 

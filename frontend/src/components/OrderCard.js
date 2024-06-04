@@ -1,5 +1,5 @@
 import React from 'react';
-import './OrderCard.css'; // Asegúrate de tener estilos para este componente
+import './styles/OrderCard.css'; // Asegúrate de tener estilos para este componente
 
 const OrderCard = ({ order }) => {
   return (

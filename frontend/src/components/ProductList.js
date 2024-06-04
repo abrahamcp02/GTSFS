@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { fetchProducts } from '../services/apiService';
 import { jwtDecode } from 'jwt-decode';
-import './ProductList.css';
+import './styles/ProductList.css';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);

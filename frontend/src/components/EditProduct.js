@@ -1,19 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchProductById, updateProduct } from '../services/apiService';
-import './EditProduct.css';
+import './styles/EditProduct.css';
 
 const EditProduct = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
-  const [product, setProduct] = useState({ name: '', price: '', image: '' });
+  const [product, setProduct] = useState({ name: '', price: '', image: '', description: '' });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const response = await fetchProductById(productId);
-      setProduct(response.data);
+      try {
+        const response = await fetchProductById(productId);
+        if (response.data && response.data.length > 0) {
+          setProduct(response.data[0]);
+        }
+      } catch (error) {
+        console.error('Error fetching product:', error);
+      } finally {
+        setLoading(false);
+      }
     };
-    fetchProduct();
+    if (productId) {
+      fetchProduct();
+    }
   }, [productId]);
 
   const handleChange = (e) => {
@@ -22,9 +33,17 @@ const EditProduct = () => {
   };
 
   const handleSave = async () => {
-    await updateProduct(productId, product);
-    navigate('/store');
+    try {
+      await updateProduct(productId, product);
+      navigate('/store');
+    } catch (error) {
+      console.error('Error updating product:', error);
+    }
   };
+
+  if (loading) {
+    return <div className="loading-spinner">Loading...</div>;
+  }
 
   return (
     <div className="edit-product-container">
@@ -60,16 +79,15 @@ const EditProduct = () => {
         />
       </div>
       <div className="form-group">
-          <label htmlFor="description">Descripción</label>
-          <input
-            type="text"
-            id="description"
-            name="description"
-            value={product.decription}
-            onChange={handleChange}
-            className="form-control"
-          />          
-        </div>      
+        <label>Descripción:</label>
+        <input
+          type="text"
+          name="description"
+          value={product.description}
+          onChange={handleChange}
+          className="form-control"
+        />
+      </div>
       <button onClick={handleSave} className="btn btn-primary-edit">
         Guardar
       </button>

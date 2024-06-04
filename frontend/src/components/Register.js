@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { register } from '../services/apiAuthService';
-import './Register.css'; // Asegúrate de que el archivo CSS esté correctamente vinculado
+import './styles/Register.css'; // Asegúrate de que el archivo CSS esté correctamente vinculado
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -15,6 +15,9 @@ function Register() {
     try {
       const response = await register(username, email, name, password);
       console.log(response);
+
+      // Save token in localStorage and redirect to home
+      localStorage.setItem('token', response.token);
       window.location.href = '/';
     } catch (error) {
       console.error('Error en el registro:', error.message);
@@ -57,7 +60,7 @@ function Register() {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Nombre"
+          placeholder="Nombre y Apellidos"
           required
         />
         <button type="submit">Crear Cuenta</button>
@@ -65,4 +68,5 @@ function Register() {
     </div>
   );
 }
+
 export default Register;

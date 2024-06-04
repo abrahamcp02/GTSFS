@@ -16,7 +16,7 @@ const SeatModel = require('../models/Seat');
       return res.status(400).send({ message: 'Row ID and seat number are required.' });
     }
   
-    SeatModel.create(rowId, number, false, (error, seat) => { // Assuming isReserved is false by default
+    SeatModel.create(rowId, number, false, (error, seat) => {
       if (error) {
         return res.status(500).send({ message: error.message });
       }

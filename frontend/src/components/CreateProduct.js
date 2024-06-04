@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createProduct } from '../services/apiService';
-import './CreateProduct.css'; // Asegúrate de crear este archivo para los estilos
+import './styles/CreateProduct.css'; // Asegúrate de crear este archivo para los estilos
 
 const CreateProduct = () => {
   const [product, setProduct] = useState({ name: '', price: '', image: '' });

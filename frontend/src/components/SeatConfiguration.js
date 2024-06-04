@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getRowsByTheaterId, createSeat, createRow, deleteSeat, deleteRow } from '../services/apiSeatService';
 import { Button, Container, Row, Col, Card } from 'react-bootstrap';
-import './SeatConfiguration.css';
+import './styles/SeatConfiguration.css';
 
 const SeatConfiguration = () => {
   const { theaterId } = useParams();

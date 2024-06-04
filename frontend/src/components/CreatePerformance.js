@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPerformance } from '../services/apiPerformanceService';
 import { getTheaters } from '../services/apiTheaterService';
-import './CreatePerformance.css';
+import './styles/CreatePerformance.css';
 
 const CreatePerformance = () => {
   const [performance, setPerformance] = useState({

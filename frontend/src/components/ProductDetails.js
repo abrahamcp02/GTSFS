@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; // Importa useNavigate
 import { fetchProductById, addToProductCart } from '../services/apiService';
 import { jwtDecode } from 'jwt-decode';
-import './ProductDetails.css';
+import './styles/ProductDetails.css';
 
 const ProductDetails = () => {
   const { productId } = useParams();

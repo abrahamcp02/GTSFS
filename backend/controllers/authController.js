@@ -48,22 +48,25 @@ function login(req, res) {
 
 async function register(req, res) {
   const { username, email, name, password } = req.body;
-
   try {
-    // Verifica si el usuario ya existe
-    const existingUser = await User.getByUsername(username);
-    if (existingUser) {
-      return res.status(400).json({ message: 'El nombre de usuario ya está en uso' });
-    }
-    const saltRounds = 10; // Es común usar 10 rondas de sal
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-    // Crea un nuevo usuario
-    const user = await User.create(username, email, name, hashedPassword);
+    const hashedPassword = await bcrypt.hash(password, 10);
+    User.create({ username, email, name, password: hashedPassword }, (err, result) => {
+      if (err) {
+        if (err.code === 'ER_DUP_ENTRY') {
+          return res.status(409).json({ message: 'Username or email already exists' });
+        }
+        return res.status(500).json({ message: 'Error registering user' });
+      }
+
+      // Automatically log in the user after successful registration
+      const token = jwt.sign({ id: result.insertId, username, role: 'user' }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      res.status(201).json({ message: 'User registered successfully', token });
+    });
   } catch (error) {
-    console.error('Error en el registro de usuario:', error);
-    res.status(500).json({ message: 'Error en el servidor' });
+    console.error('Error in registration:', error);
+    res.status(500).json({ message: 'Error registering user' });
   }
-}
+};
 
 
 module.exports = { login, register };

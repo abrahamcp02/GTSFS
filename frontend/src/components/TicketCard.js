@@ -2,7 +2,7 @@ import React from 'react';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './TicketCard.css';
+import './styles/TicketCard.css';
 
 // Define styles for the PDF
 const styles = StyleSheet.create({
