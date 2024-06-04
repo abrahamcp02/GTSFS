@@ -6,7 +6,7 @@ import { useParams, useNavigate  } from 'react-router-dom';
 import { fetchPerformanceById } from '../services/apiPerformanceService';
 import ReactPlayer from 'react-player';
 // Asegúrate de tener el archivo CSS para estilos.
-import './PerformanceDetails.css';
+import './styles/PerformanceDetails.css';
 
 const PerformanceDetails = () => {
   // Obtiene el performanceId de la URL.

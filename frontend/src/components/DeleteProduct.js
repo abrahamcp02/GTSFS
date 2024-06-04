@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { deleteProduct } from '../services/apiService';
-import './DeleteProduct.css'; // Asegúrate de crear este archivo para los estilos
+import './styles/DeleteProduct.css'; // Asegúrate de crear este archivo para los estilos
 
 const DeleteProduct = () => {
   const { productId } = useParams();

@@ -36,9 +36,9 @@ class SeatModel {
     db.query(query, [performanceId, performanceId], callback);
   }
 
-  static create(rowId, number, isReserved, callback) {
+  static create(rowId, number, callback) {
     const sql = "INSERT INTO seats (row_id, seat_number) VALUES (?, ?)";
-    db.query(sql, [rowId, number, isReserved], (error, results) => {
+    db.query(sql, [rowId, number], (error, results) => {
       if (error) {
         callback(error);
       } else {

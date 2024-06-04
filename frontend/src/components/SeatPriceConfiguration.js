@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getRowsByTheaterId } from '../services/apiSeatService';
 import { getPricesByPerformanceId, createOrUpdateSeatPrice } from '../services/apiSeatPriceService';
-import './SeatPriceConfiguration.css';
+import './styles/SeatPriceConfiguration.css';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 
 const SeatPriceConfiguration = () => {

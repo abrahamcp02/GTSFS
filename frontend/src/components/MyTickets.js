@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { getMyTickets } from '../services/apiTicketService';
 import { jwtDecode } from 'jwt-decode';
 import TicketCard from './TicketCard'; // Asegúrate de importar el componente TicketCard
-import './MyTickets.css'; // Asegúrate de tener estilos para este componente
+import './styles/MyTickets.css'; // Asegúrate de tener estilos para este componente
 
 const MyTickets = () => {
   const [tickets, setTickets] = useState([]);

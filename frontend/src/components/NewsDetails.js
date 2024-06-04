@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchNewsById } from '../services/apiNewsService';
-import './NewsDetails.css';
+import './styles/NewsDetails.css';
 
 const NewsDetails = () => {
   const { newsId } = useParams();  // Asegúrate que 'newsId' coincide con la ruta definida en tu Router.

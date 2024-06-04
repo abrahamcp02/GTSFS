@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { fetchPerformances, deletePerformance, updatePerformance } from '../services/apiPerformanceService';
+import { fetchPerformances, deletePerformance } from '../services/apiPerformanceService';
 import { jwtDecode } from 'jwt-decode';
-import './PerformanceList.css';
+import './styles/PerformanceList.css';
 
 const PerformanceList = () => {
   const [performances, setPerformances] = useState([]);
@@ -34,6 +34,7 @@ const PerformanceList = () => {
 
   return (
     <div className="performance-list-container">
+      {console.log(performances)}
       {role === "admin" && (
         <div className="create-performance-button-container">
           <button
@@ -53,8 +54,9 @@ const PerformanceList = () => {
             <Link to={`/performances/${performance.id}`} className="performance-name">
               {performance.title}
             </Link>
-            <p className="performance-date">{new Date(performance.performance_date).toLocaleDateString()}</p>
-            <p className="performance-hour">{new Date(performance.performance_date).toLocaleTimeString()}</p>
+            <p className="performance-date">📅 {new Date(performance.performance_date).toLocaleDateString()}</p>
+            <p className="performance-hour">🕑 {new Date(performance.performance_date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+            <p className="performance-address">📍 {performance.name} ({performance.address})</p>
             {role === "admin" && (
               <div className="performance-actions">
                 <button
@@ -65,7 +67,7 @@ const PerformanceList = () => {
                 </button>
                 <button
                   className="delete-button"
-                  onClick={() => navigate(`/delete-performance/${performance.id}`)}
+                  onClick={() => handleDelete(performance.id)}
                 >
                   🗑️
                 </button>

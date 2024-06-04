@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getProductCart, purchaseProducts, removeFromProductCart } from '../services/apiProductCartService';
 import { jwtDecode } from 'jwt-decode';
-import './Cart.css'; // Puedes reutilizar los estilos del carrito
+import './styles/Cart.css'; // Puedes reutilizar los estilos del carrito
 
 const ProductCart = () => {
   const [cartItems, setCartItems] = useState([]);

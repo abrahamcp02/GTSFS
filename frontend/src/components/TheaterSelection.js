@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getTheaters, createTheater } from '../services/apiTheaterService';
 import { useNavigate } from 'react-router-dom';
 import { Form, Button, Dropdown, DropdownButton, Container, Row, Col, Alert } from 'react-bootstrap';
-import './TheaterSelection.css';
+import './styles/TheaterSelection.css';
 
 const TheaterSelection = () => {
   const [theaters, setTheaters] = useState([]);

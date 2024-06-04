@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getPricesByPerformanceId } from '../services/apiSeatPriceService';
 import { addToCart, removeFromCart, getCart } from '../services/apiTicketService';
 import { jwtDecode } from 'jwt-decode';
-import './SeatMap.css';
+import './styles/SeatMap.css';
 
 const SeatMap = ({ seats, onSeatSelect, performanceId }) => {
   const [seatPrices, setSeatPrices] = useState([]);

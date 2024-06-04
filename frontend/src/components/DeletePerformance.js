@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { deletePerformance } from '../services/apiPerformanceService';
-import './DeletePerformance.css'; // Asegúrate de crear este archivo para los estilos
+import './styles/DeletePerformance.css'; // Asegúrate de crear este archivo para los estilos
 
 const DeletePerformance = () => {
   const { performanceId } = useParams();

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; // Asegúrate de importar Link aquí
 import { fetchNews } from '../services/apiNewsService';
 import { jwtDecode } from "jwt-decode";
-import './NewsList.css';
+import './styles/NewsList.css';
 
 var role = "user";
 var user = "";

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchPerformanceById, updatePerformance } from '../services/apiPerformanceService';
 import { getTheaters } from '../services/apiTheaterService';
-import './EditPerformance.css';
+import './styles/EditPerformance.css';
 
 const EditPerformance = () => {
   const [performance, setPerformance] = useState({
@@ -14,23 +14,41 @@ const EditPerformance = () => {
     theater_id: ''
   });
   const [theaters, setTheaters] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
   const { performanceId } = useParams();
 
   useEffect(() => {
     const getPerformance = async () => {
-      const response = await fetchPerformanceById(performanceId);
-      setPerformance(response.data);
+      try {
+        const response = await fetchPerformanceById(performanceId);
+        if (response.data && response.data.length > 0) {
+          const performanceData = response.data[0];
+          // Convert the performance_date to the correct format for datetime-local input
+          const performanceDate = new Date(performanceData.performance_date).toISOString().slice(0, 16);
+          setPerformance({ ...performanceData, performance_date: performanceDate });
+        }
+      } catch (error) {
+        console.error('Error fetching performance:', error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     const getTheater = async () => {
-      const response = await getTheaters();
-      setTheaters(response.data);
+      try {
+        const response = await getTheaters();
+        setTheaters(response.data);
+      } catch (error) {
+        console.error('Error fetching theaters:', error);
+      }
     };
 
-    getPerformance();
-    getTheater();
+    if (performanceId) {
+      getPerformance();
+      getTheater();
+    }
   }, [performanceId]);
 
   const handleChange = (e) => {
@@ -40,9 +58,17 @@ const EditPerformance = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await updatePerformance(performanceId, performance);
-    navigate('/performances');
+    try {
+      await updatePerformance(performanceId, performance);
+      navigate('/performances');
+    } catch (error) {
+      console.error('Error updating performance:', error);
+    }
   };
+
+  if (loading) {
+    return <div className="loading-spinner">Loading...</div>; // Aquí podrías usar el componente LoadingSpinner
+  }
 
   return (
     <div className="edit-performance-container">

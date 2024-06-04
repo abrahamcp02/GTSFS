@@ -8,7 +8,7 @@ import "bootstrap";
 import { FaShoppingCart, FaTicketAlt } from "react-icons/fa";
 import { getCartCount } from '../services/apiTicketService';
 import { getProductCartCount } from '../services/apiProductCartService';
-import './NavBar.css';
+import './styles/NavBar.css';
 
 var role = "";
 var username = ""
