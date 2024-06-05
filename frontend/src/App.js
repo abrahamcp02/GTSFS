@@ -21,7 +21,6 @@ import CreatePerformance from './components/CreatePerformance';
 import CreateProduct from './components/CreateProduct';
 import DeletePerformance from './components/DeletePerformance';
 import DeleteProduct from './components/DeleteProduct';
-import PrivateRoute from './components/PrivateRoute';
 import Cart from './components/Cart';
 import MyTickets from './components/MyTickets';
 import EventDetails from './components/EventCard';
@@ -30,6 +29,7 @@ import CreateNews from './components/CreateNews';
 import EditNews from './components/EditNews';
 import DeleteNews from './components/DeleteNews';
 import { UserProvider } from './context/UserContext';
+import AuthWrapper from './context/AuthContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -41,32 +41,32 @@ const App = () => {
           <NavBar />
           <main style={{ flex: 1 }}>
             <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/store" element={<Store />} />
-              <Route path="/products/:productId" element={<ProductDetails />} />
-              <Route path="/product-cart" element={<ProductCart />} />
-              <Route path="/news/:newsId" element={<NewsDetails />} />
-              <Route path="/performances" element={<TheatricalPerformances />} />
-              <Route path="/performances/:performanceId" element={<PerformanceDetails />} />
-              <Route path="/select-seats/:performanceId" element={<SeatSelectionPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/theater-selection" element={<TheaterSelection />} />
-              <Route path="/configure-seats/:theaterId" element={<SeatConfiguration />} />
-              <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
-              <Route path="/configure-seat-prices/:performanceId/:theaterId" element={<SeatPriceConfiguration />} />
-              <Route path="/my-tickets" element={<MyTickets />} />
-              <Route path="/event-details/:performanceId" element={<EventDetails />} />
-              <Route path="/edit-performance/:performanceId" element={<PrivateRoute><EditPerformance /></PrivateRoute>} />
-              <Route path="/edit-product/:productId" element={<PrivateRoute><EditProduct /></PrivateRoute>} />
-              <Route path="/edit-news/:newsId" element={<PrivateRoute><EditNews /></PrivateRoute>} />
-              <Route path="/create-performance" element={<PrivateRoute><CreatePerformance /></PrivateRoute>} />
-              <Route path="/create-product" element={<PrivateRoute><CreateProduct /></PrivateRoute>} />
-              <Route path="/create-news" element={<PrivateRoute><CreateNews /></PrivateRoute>} />
-              <Route path="/delete-product/:productId" element={<PrivateRoute><DeleteProduct /></PrivateRoute>} />
-              <Route path="/delete-news/:newsId" element={<PrivateRoute><DeleteNews /></PrivateRoute>} />
-              <Route path="/delete-performance/:performanceId" element={<PrivateRoute><DeletePerformance /></PrivateRoute>} />
-              <Route path="/my-orders" element={<MyOrders />} />              
+              <Route path="/" element={<AuthWrapper><HomePage /></AuthWrapper>} />
+              <Route path="/store" element={<AuthWrapper><Store /></AuthWrapper>} />
+              <Route path="/products/:productId" element={<AuthWrapper><ProductDetails /></AuthWrapper>} />
+              <Route path="/product-cart" element={<AuthWrapper><ProductCart /></AuthWrapper>} />
+              <Route path="/news/:newsId" element={<AuthWrapper><NewsDetails /></AuthWrapper>} />
+              <Route path="/performances" element={<AuthWrapper><TheatricalPerformances /></AuthWrapper>} />
+              <Route path="/performances/:performanceId" element={<AuthWrapper><PerformanceDetails /></AuthWrapper>} />
+              <Route path="/select-seats/:performanceId" element={<AuthWrapper><SeatSelectionPage /></AuthWrapper>} />
+              <Route path="/theater-selection" element={<AuthWrapper><TheaterSelection /></AuthWrapper>} />
+              <Route path="/configure-seats/:theaterId" element={<AuthWrapper adminOnly={true}><SeatConfiguration /></AuthWrapper>} />
+              <Route path="/cart" element={<AuthWrapper><Cart /></AuthWrapper>} />
+              <Route path="/configure-seat-prices/:performanceId/:theaterId" element={<AuthWrapper adminOnly={true}><SeatPriceConfiguration /></AuthWrapper>} />
+              <Route path="/my-tickets" element={<AuthWrapper><MyTickets /></AuthWrapper>} />
+              <Route path="/event-details/:performanceId" element={<AuthWrapper><EventDetails /></AuthWrapper>} />
+              <Route path="/edit-performance/:performanceId" element={<AuthWrapper adminOnly={true}><EditPerformance /></AuthWrapper>} />
+              <Route path="/edit-product/:productId" element={<AuthWrapper adminOnly={true}><EditProduct /></AuthWrapper>} />
+              <Route path="/edit-news/:newsId" element={<AuthWrapper adminOnly={true}><EditNews /></AuthWrapper>} />
+              <Route path="/create-performance" element={<AuthWrapper adminOnly={true}><CreatePerformance /></AuthWrapper>} />
+              <Route path="/create-product" element={<AuthWrapper adminOnly={true}><CreateProduct /></AuthWrapper>} />
+              <Route path="/create-news" element={<AuthWrapper adminOnly={true}><CreateNews /></AuthWrapper>} />
+              <Route path="/delete-product/:productId" element={<AuthWrapper adminOnly={true}><DeleteProduct /></AuthWrapper>} />
+              <Route path="/delete-news/:newsId" element={<AuthWrapper adminOnly={true}><DeleteNews /></AuthWrapper>} />
+              <Route path="/delete-performance/:performanceId" element={<AuthWrapper adminOnly={true}><DeletePerformance /></AuthWrapper>} />
+              <Route path="/my-orders" element={<AuthWrapper><MyOrders /></AuthWrapper>} />
             </Routes>
           </main>
           <Footer />

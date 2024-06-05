@@ -1,10 +1,12 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import useAuth from '../components/useAuth'; // Asegúrate de importar correctamente
 
 const PrivateRoute = ({ children }) => {
-  const isAuthenticated = !!localStorage.getItem('token');
+  useAuth(); // Llama al hook para realizar la autenticación
 
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  const token = localStorage.getItem('token');
+  return token ? children : <Navigate to="/login" />;
 };
 
-export default PrivateRoute;
+export default PrivateRoute
