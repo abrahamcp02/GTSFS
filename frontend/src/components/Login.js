@@ -13,7 +13,6 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await login(username, password)
-      console.log('Inicio de sesión exitoso:', response.data);
       localStorage.setItem('token', response.data.token);
       window.location.href = '/';
     } catch (error) {

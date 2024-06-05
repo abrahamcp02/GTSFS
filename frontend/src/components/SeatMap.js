@@ -33,17 +33,13 @@ const SeatMap = ({ seats, onSeatSelect, performanceId }) => {
           const decoded = jwtDecode(token);
           const userId = decoded.id;
           const response = await getCart(userId);
-          console.log('Fetched cart items:', response.data);
 
           if (response.data && response.data.length > 0) {
-            console.log('Cart item structure:', response.data[0]);
-
             const seatIdsInCart = response.data.map(item => ({
               seat_number: parseInt(item.seat_number),
               row_number: parseInt(item.row_number)
             }));
             setSelectedSeats(seatIdsInCart);
-            console.log('Selected seats:', seatIdsInCart);
           } else {
             console.warn('No items in the cart or incorrect data structure');
           }

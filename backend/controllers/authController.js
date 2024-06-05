@@ -4,7 +4,6 @@ const User = require('../models/User');
 
 function login(req, res) {
   const { username, password } = req.body;
-  console.log("username es " + username);
 
   User.getByUsername(username, (error, results) => {
     if (error) {
@@ -18,7 +17,6 @@ function login(req, res) {
     }
 
     const user = results[0];
-    console.log("Usuario encontrado:", user);
 
     bcrypt.compare(password, user.password, (err, match) => {
       if (err) {
@@ -31,8 +29,6 @@ function login(req, res) {
         return res.status(401).json({ message: 'Contraseña incorrecta' });
       }
 
-      console.log("contraseña correcta");
-      console.log("UserID:", user.id)
       // Generación del token JWT
       const token = jwt.sign({ username: user.username, role: user.role, id: user.id }, 'secreto', { expiresIn: '1h' });
 
@@ -41,7 +37,6 @@ function login(req, res) {
         message: 'Inicio de sesión exitoso',
         token: token
       });
-      console.log("INICIO SESION EXITOSO");
     });
   });
 }

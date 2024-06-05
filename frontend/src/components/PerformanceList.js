@@ -34,7 +34,6 @@ const PerformanceList = () => {
 
   return (
     <div className="performance-list-container">
-      {console.log(performances)}
       {role === "admin" && (
         <div className="create-performance-button-container">
           <button
@@ -48,7 +47,7 @@ const PerformanceList = () => {
       {performances.map(performance => (
         <div key={performance.id} className="performance-item">
           <div className="performance-image-container">
-            <img src={performance.image} alt={performance.name} className="performance-image" />
+            <img src={performance.image} alt={performance.image} className="performance-image" />
           </div>
           <div className="performance-details">
             <Link to={`/performances/${performance.id}`} className="performance-name">
