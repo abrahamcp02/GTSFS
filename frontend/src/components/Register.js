@@ -14,7 +14,6 @@ function Register() {
     setError(''); // Clear previous errors
     try {
       const response = await register(username, email, name, password);
-      console.log(response);
 
       // Save token in localStorage and redirect to home
       localStorage.setItem('token', response.token);

@@ -20,7 +20,6 @@ const ProductCart = () => {
         const decoded = jwtDecode(token);
         const userId = decoded.id;
         const response = await getProductCart(userId);
-        console.log('Response data:', response.data); // Log para ver los datos recibidos
         const items = Array.isArray(response.data) ? response.data : [];
         setCartItems(items);
         calculateTotalPrice(items);

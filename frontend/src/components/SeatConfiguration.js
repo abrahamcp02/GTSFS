@@ -17,7 +17,6 @@ const SeatConfiguration = () => {
     try {
       const response = await getRowsByTheaterId(theaterId);
       const fetchedRows = response.data || [];
-      console.log('Fetched rows:', fetchedRows);
       const mappedRows = fetchedRows.map(row => ({
         id: row.id,
         number: row.row_number,
@@ -41,7 +40,6 @@ const SeatConfiguration = () => {
     try {
       const response = await createRow(theaterId, { number: rows.length + 1 });
       const newRow = response.data;
-      console.log('New row:', newRow);
       setRows(prevRows => [...prevRows, { ...newRow, seats: [] }]);
     } catch (error) {
       console.error('Error adding row:', error);
@@ -53,10 +51,8 @@ const SeatConfiguration = () => {
       const row = rows.find(row => row.id === rowId);
       if (row) {
         const seatNumber = row.seats.length + 1;
-        console.log(`Creating seat for row ${rowId} with number ${seatNumber}`);
         const response = await createSeat(rowId, { number: seatNumber });
         const newSeat = response.data;
-        console.log('New seat:', newSeat);
         const updatedRows = rows.map(row =>
           row.id === rowId ? { ...row, seats: [...row.seats, newSeat].sort((a, b) => a.number - b.number) } : row
         );

@@ -16,7 +16,6 @@ const NewsList = () => {
   useEffect(() => {
     const getAllNews = async () => {
       const response = await fetchNews();
-      console.log(response.data);
       setNews(response.data);
     };
     getAllNews();

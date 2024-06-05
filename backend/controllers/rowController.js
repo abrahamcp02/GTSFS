@@ -4,8 +4,7 @@ const Seat = require('../models/Seat');
 exports.createRow = (req, res) => {
   const { theaterId } = req.params;
   const { number } = req.body;
-  console.log(theaterId, number);
-
+  
   // Suponiendo que tienes una función en tu modelo Row para crear la fila
   Row.create(theaterId, number, (error, row) => {
       if (error) {

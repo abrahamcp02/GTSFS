@@ -38,7 +38,6 @@ const ProductDetails = () => {
       const decoded = jwtDecode(token);
       const userId = decoded.id;
       await addToProductCart(userId, product.id);
-      console.log('Product added to cart');
     } catch (error) {
       console.error('Error adding to cart:', error);
     }
