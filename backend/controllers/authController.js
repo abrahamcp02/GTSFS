@@ -29,8 +29,11 @@ function login(req, res) {
         return res.status(401).json({ message: 'Contraseña incorrecta' });
       }
 
-      // Generación del token JWT
-      const token = jwt.sign({ username: user.username, role: user.role, id: user.id }, 'secreto', { expiresIn: '1h' });
+      const token = jwt.sign(
+        { username: user.username, role: user.role, id: user.id },
+        'secreto',
+        { expiresIn: '1h' }
+      );
 
       // Envío del token como respuesta
       res.json({

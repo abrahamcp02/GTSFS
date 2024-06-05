@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getRowsByTheaterId } from '../services/apiSeatService';
 import { getPricesByPerformanceId, createOrUpdateSeatPrice } from '../services/apiSeatPriceService';
+import ProcessingPopup from './ProcessingWindow'; // Importar el componente ProcessingPopup
 import './styles/SeatPriceConfiguration.css';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 
@@ -9,6 +10,9 @@ const SeatPriceConfiguration = () => {
   const { performanceId, theaterId } = useParams();
   const [rows, setRows] = useState([]);
   const [rowPrices, setRowPrices] = useState({});
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [processingMessage, setProcessingMessage] = useState('');
+  const [allSeatsPrice, setAllSeatsPrice] = useState('');
 
   useEffect(() => {
     fetchRowsAndPrices();
@@ -24,17 +28,15 @@ const SeatPriceConfiguration = () => {
       const rows = Array.isArray(rowsResponse.data) ? rowsResponse.data : [];
       const prices = Array.isArray(pricesResponse) ? pricesResponse : [];
 
-      // Ensure each row has a seats array and a number
       rows.forEach(row => {
         row.seats = row.seats || [];
-        row.number = row.row_number || row.number || 'Sin número'; // Añadir una asignación de número
+        row.number = row.row_number || row.number || 'Sin número';
       });
 
-      // Merge seat prices into rows
       rows.forEach(row => {
         row.seats.forEach(seat => {
           const priceInfo = prices.find(price => price.seat_id === seat.id);
-          seat.price = priceInfo ? priceInfo.price : 0; // Set price to 0 if not assigned
+          seat.price = priceInfo ? priceInfo.price : 0;
         });
       });
 
@@ -46,6 +48,8 @@ const SeatPriceConfiguration = () => {
 
   const handleUpdateSeatPrice = async (seatId, price) => {
     const parsedPrice = parseFloat(price) || 0;
+    setIsProcessing(true);
+    setProcessingMessage('Actualizando precio del asiento...');
     try {
       await createOrUpdateSeatPrice(seatId, performanceId, parsedPrice);
       const updatedRows = rows.map(row => ({
@@ -55,11 +59,17 @@ const SeatPriceConfiguration = () => {
       setRows(updatedRows);
     } catch (error) {
       console.error('Error updating seat price:', error);
+    } finally {
+      setTimeout(() => {
+        setIsProcessing(false);
+      }, 1000);
     }
   };
 
   const handleUpdateRowPrices = async (rowId, price) => {
     const parsedPrice = parseFloat(price) || 0;
+    setIsProcessing(true);
+    setProcessingMessage('Actualizando precios de la fila...');
     try {
       const row = rows.find(row => row.id === rowId);
       if (row) {
@@ -76,6 +86,10 @@ const SeatPriceConfiguration = () => {
       }
     } catch (error) {
       console.error('Error updating row prices:', error);
+    } finally {
+      setTimeout(() => {
+        setIsProcessing(false);
+      }, 1000);
     }
   };
 
@@ -83,8 +97,47 @@ const SeatPriceConfiguration = () => {
     setRowPrices(prevPrices => ({ ...prevPrices, [rowId]: price }));
   };
 
+  const handleUpdateAllPrices = async (price) => {
+    const parsedPrice = parseFloat(price) || 0;
+    setIsProcessing(true);
+    setProcessingMessage('Actualizando precios de todos los asientos...');
+    try {
+      const updatePromises = [];
+      rows.forEach(row => {
+        row.seats.forEach(seat => {
+          updatePromises.push(createOrUpdateSeatPrice(seat.id, performanceId, parsedPrice));
+        });
+      });
+      await Promise.all(updatePromises);
+
+      const updatedRows = rows.map(row => ({
+        ...row,
+        seats: row.seats.map(seat => ({ ...seat, price: parsedPrice }))
+      }));
+      setRows(updatedRows);
+    } catch (error) {
+      console.error('Error updating all seat prices:', error);
+    } finally {
+      setTimeout(() => {
+        setIsProcessing(false);
+      }, 1000);
+    }
+  };
+
   return (
     <Container>
+      <Form.Group className="d-flex justify-content-between mb-4">
+        <Form.Control
+          type="number"
+          placeholder="Asignar precio a todos los asientos"
+          value={allSeatsPrice}
+          onChange={(e) => setAllSeatsPrice(e.target.value)}
+          onBlur={(e) => handleUpdateAllPrices(e.target.value)}
+        />
+        <Button variant="primary" onClick={() => handleUpdateAllPrices(allSeatsPrice)}>
+          Asignar a todos
+        </Button>
+      </Form.Group>
       {rows.length > 0 ? (
         rows.map(row => (
           <Card key={row.id} className="mb-4">
@@ -98,7 +151,7 @@ const SeatPriceConfiguration = () => {
                         <Card.Text>Asiento {seat.number}</Card.Text>
                         <Form.Control
                           type="number"
-                          value={seat.price || 0}  // Ensure value is never undefined
+                          value={seat.price || 0}
                           onChange={(e) => handleUpdateSeatPrice(seat.id, e.target.value)}
                         />
                       </Card.Body>
@@ -124,6 +177,7 @@ const SeatPriceConfiguration = () => {
       ) : (
         <div>No hay filas para mostrar.</div>
       )}
+      {isProcessing && <ProcessingPopup message={processingMessage} />}
     </Container>
   );
 };

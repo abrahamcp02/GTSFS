@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './styles/Login.css'; // Asegúrate de que el archivo CSS esté correctamente vinculado
 import { login } from '../services/apiAuthService';
 import { Link } from 'react-router-dom'; // Asegúrate de importar Link aquí
@@ -8,12 +9,19 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await login(username, password)
       localStorage.setItem('token', response.data.token);
+
+      setTimeout(() => {
+        localStorage.removeItem('token');
+        navigate('/login');
+      }, 10000); // 20 seconds
+
       window.location.href = '/';
     } catch (error) {
       console.error('Error en el inicio de sesión:', error);

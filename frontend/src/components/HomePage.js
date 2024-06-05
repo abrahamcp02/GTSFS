@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import NewsList from './NewsList';
 import { jwtDecode } from "jwt-decode";
 import { fetchNews } from '../services/apiNewsService';
-
+import useAuth from './useAuth';
 
 const HomePage = () => {
   const [news, setNews] = useState([]);
-
   useEffect(() => {
     const getAllNews = async () => {
       const response = await fetchNews();
