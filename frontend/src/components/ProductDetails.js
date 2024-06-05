@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // Importa useNavigate
-import { fetchProductById, addToProductCart } from '../services/apiService';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { fetchProductById } from '../services/apiService';
+import { addToProductCart } from '../services/apiProductCartService';
 import { jwtDecode } from 'jwt-decode';
+import { Form, InputGroup, Button } from 'react-bootstrap';
 import './styles/ProductDetails.css';
 
 const ProductDetails = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
+  const [quantity, setQuantity] = useState(1); // State for quantity
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate(); // Inicializa useNavigate
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -37,7 +40,7 @@ const ProductDetails = () => {
 
       const decoded = jwtDecode(token);
       const userId = decoded.id;
-      await addToProductCart(userId, product.id);
+      await addToProductCart(userId, product.id, quantity); // Send quantity
     } catch (error) {
       console.error('Error adding to cart:', error);
     }
@@ -55,7 +58,17 @@ const ProductDetails = () => {
         <h1 className="product-title">{product.name}</h1>
         <p className="product-price">{product.price} €</p>
         <p className="product-description">{product.description}</p>
-        <button className="btn btn-primary" onClick={handleAddToCart}>Añadir al carrito</button>
+        <InputGroup className="mb-3">
+          <Form.Control
+            type="number"
+            value={quantity}
+            onChange={(e) => setQuantity(parseInt(e.target.value))}
+            min="1"
+          />
+          <Button variant="primary" onClick={handleAddToCart}>
+            Añadir al carrito
+          </Button>
+        </InputGroup>
       </div>
     </div>
   );
