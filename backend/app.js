@@ -18,7 +18,13 @@ const ticketRoutes = require('./routes/ticketsRoutes');
 const productCartRoutes = require('./routes/productCartRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 
-app.use(cors());
+const corsOptions = {
+  origin: ['http://localhost:3000', 'http://192.168.137.1:3000'], // Reemplaza <YOUR_IP_ADDRESS> con tu IP
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 // Rutas

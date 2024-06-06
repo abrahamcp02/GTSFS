@@ -1,25 +1,31 @@
 import React from 'react';
 import { PDFDownloadLink } from '@react-pdf/renderer';
-import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
+import { Document, Page, View, Text, Image, StyleSheet } from '@react-pdf/renderer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/TicketCard.css';
 
 // Define styles for the PDF
 const styles = StyleSheet.create({
   page: {
-    backgroundColor: '#ffffff',
-    padding: 20,
+    padding: 40, // Increased padding for better print margins
+    fontFamily: 'Helvetica',
+    fontSize: 12,
+    lineHeight: 1.5,
+    flexDirection: 'column',
   },
   header: {
-    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#cccccc',
+    borderBottomStyle: 'solid',
+    marginBottom: 10,
+    paddingBottom: 10,
   },
   logo: {
-    width: 240,
-    height: 180,
+    width: 190, // Increased logo size
+    height: 190, // Increased logo size
   },
   qrCode: {
     width: 100,
@@ -28,8 +34,8 @@ const styles = StyleSheet.create({
   eventTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 10,
     textAlign: 'center',
+    marginBottom: 20,
   },
   text: {
     fontSize: 12,
@@ -48,6 +54,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#555',
   },
+  detailRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 5,
+  },
+  detailLabel: {
+    fontWeight: 'bold',
+  },
 });
 
 const TicketPDF = ({ ticket }) => (
@@ -55,18 +69,51 @@ const TicketPDF = ({ ticket }) => (
     <Page size="A4" style={styles.page}>
       <View style={styles.header}>
         <Image style={styles.logo} src="https://i.ibb.co/3TPQ5dV/LOGO-GRUPO-DE-TEATRO-SAN-FRANCIS.png" />
+        <View>
+          <Text style={styles.eventTitle}>{ticket.performance_title}</Text>
+          <Text style={styles.text}>{new Date(ticket.performance_date).toLocaleDateString()}</Text>
+          <Text style={styles.text}>{new Date(ticket.performance_date).toLocaleTimeString()}</Text>
+          <Text style={styles.text}>{ticket.venue}</Text>
+        </View>
         <Image style={styles.qrCode} src={`https://api.qrserver.com/v1/create-qr-code/?data=${ticket.serial_number}&size=100x100`} />
       </View>
-      <Text style={styles.eventTitle}>{ticket.performance_title}</Text>
       <View style={styles.ticketInfo}>
-        <Text style={styles.ticketDetail}>Representación: {ticket.performance_name}</Text>
-        <Text style={styles.ticketDetail}>Fecha: {new Date(ticket.performance_date).toLocaleDateString()}</Text>
-        <Text style={styles.ticketDetail}>Hora: {new Date(ticket.performance_date).toLocaleTimeString() }</Text>
-        <Text style={styles.ticketDetail}>Asiento: {ticket.seat_number} Fila: {ticket.row_number}</Text>
-        <Text style={styles.ticketDetail}>Precio: {ticket.price}€</Text>
-        <Text style={styles.ticketDetail}>Identificador: {ticket.serial_number}</Text>
-        <Text style={styles.ticketDetail}>Comprado el: {new Date(ticket.purchased_at).toLocaleDateString()}</Text>
-        <Text style={styles.ticketDetail}>Comprado por: {ticket.user_name}</Text>
+        <View style={styles.detailRow}>
+          <Text style={styles.detailLabel}>Representación:</Text>
+          <Text>{ticket.performance_name}</Text>
+        </View>
+        <View style={styles.detailRow}>
+          <Text style={styles.detailLabel}>Fecha:</Text>
+          <Text>{new Date(ticket.performance_date).toLocaleDateString()}</Text>
+        </View>
+        <View style={styles.detailRow}>
+          <Text style={styles.detailLabel}>Hora:</Text>
+          <Text>{new Date(ticket.performance_date).toLocaleTimeString()}</Text>
+        </View>
+        <View style={styles.detailRow}>
+          <Text style={styles.detailLabel}>Asiento:</Text>
+          <Text>{ticket.seat_number}</Text>
+        </View>
+        <View style={styles.detailRow}>
+          <Text style={styles.detailLabel}>Fila:</Text>
+          <Text>{ticket.row_number}</Text>
+        </View>
+        <View style={styles.detailRow}>
+          <Text style={styles.detailLabel}>Precio:</Text>
+          <Text>{ticket.price}€</Text>
+        </View>
+        <View style={styles.detailRow}>
+          <Text style={styles.detailLabel}>Identificador:</Text>
+          <Text>{ticket.serial_number}</Text>
+        </View>
+        <View style={styles.detailRow}>
+          <Text style={styles.detailLabel}>Comprado el:</Text>
+          <Text>{new Date(ticket.purchased_at).toLocaleDateString()}</Text>
+        </View>
+        <View style={styles.detailRow}>
+          <Text style={styles.detailLabel}>Comprado por:</Text>
+          <Text>{ticket.user_name}</Text>
+        </View>
       </View>
       <Text style={styles.footer}>Gracias por apoyar al Grupo de Teatro San Francisco Solano!</Text>
     </Page>
