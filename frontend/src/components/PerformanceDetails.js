@@ -44,6 +44,8 @@ const PerformanceDetails = () => {
   // Si no se encontró el espectáculo, renderiza esto.
   if (!performance) return <div>Performance not found</div>;
 
+  console.log('Performance in render:', performance);
+
   // Renderizado condicional basado en el estado del espectáculo.
   return (
     <div className="performance-details-container">

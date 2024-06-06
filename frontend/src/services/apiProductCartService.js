@@ -13,7 +13,6 @@ const getProductCart = async (userId) => {
 };
 
 const addToProductCart = (userId, productId, quantity) => {
-  console.log('API call to add to cart:', { userId, productId, quantity }); // Asegúrate de que esto se loguea correctamente
   return axios.post(`${API_URL}/add-to-cart`, {
     userId,
     productId,

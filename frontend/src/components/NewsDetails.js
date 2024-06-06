@@ -4,7 +4,7 @@ import { fetchNewsById } from '../services/apiNewsService';
 import './styles/NewsDetails.css';
 
 const NewsDetails = () => {
-  const { newsId } = useParams();  // Asegúrate que 'newsId' coincide con la ruta definida en tu Router.
+  const { newsId } = useParams();
   const [news, setNews] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -12,8 +12,8 @@ const NewsDetails = () => {
     const fetchNewsDetails = async () => {
       setIsLoading(true);
       try {
-        const response = await fetchNewsById(newsId);  // Llamada a la API.
-        setNews(response.data);  // Asegúrate que 'data' contiene directamente el objeto de noticia.
+        const response = await fetchNewsById(newsId);
+        setNews(response.data);
       } catch (error) {
         console.error('Failed to fetch news:', error);
       } finally {
@@ -32,7 +32,6 @@ const NewsDetails = () => {
     return <div>News not found</div>;
   }
 
-  // Suponiendo que 'news' ya es el objeto correcto y no un array.
   return (
     <div className="news-details-container">
       <div className="news-image-container">
@@ -40,7 +39,10 @@ const NewsDetails = () => {
       </div>
       <div className="news-info">
         <h1 className="news-title">{news[0].title}</h1>
-        <p className="news-description">{news[0].content}</p>
+        <div
+          className="news-description"
+          dangerouslySetInnerHTML={{ __html: news[0].content }}
+        ></div>
       </div>
     </div>
   );

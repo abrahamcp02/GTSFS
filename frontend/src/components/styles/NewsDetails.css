@@ -41,6 +41,7 @@
   
   .news-description {
     margin-bottom: 20px;
+    white-space: pre-line;
   }
   
   .news-size-quantity {

@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { fetchProductById } from '../services/apiService';
 import { addToProductCart } from '../services/apiProductCartService';
 import { jwtDecode } from 'jwt-decode';
-import { Form, InputGroup, Button } from 'react-bootstrap';
+import { Form, InputGroup, Button, Modal } from 'react-bootstrap';
 import './styles/ProductDetails.css';
 
 const ProductDetails = () => {
@@ -11,6 +11,7 @@ const ProductDetails = () => {
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1); // State for quantity
   const [isLoading, setIsLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false); // State for modal visibility
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,13 +47,26 @@ const ProductDetails = () => {
     }
   };
 
+  const handleImageClick = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   if (isLoading) return <div>Loading...</div>;
   if (!product) return <div>Product not found</div>;
 
   return (
     <div className="product-details-container">
       <div className="product-image-container">
-        <img src={product.image} alt={product.name} className="product-image" />
+        <img 
+          src={product.image} 
+          alt={product.name} 
+          className="product-image" 
+          onClick={handleImageClick} // Click handler for image
+        />
       </div>
       <div className="product-info">
         <h1 className="product-title">{product.name}</h1>
@@ -70,6 +84,13 @@ const ProductDetails = () => {
           </Button>
         </InputGroup>
       </div>
+
+      {/* Modal for enlarged image */}
+      <Modal show={showModal} onHide={handleCloseModal} centered>
+        <Modal.Body>
+          <img src={product.image} alt={product.name} className="product-image-large" />
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

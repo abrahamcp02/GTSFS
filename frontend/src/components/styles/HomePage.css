@@ -1,0 +1,19 @@
+.home-page {
+    margin-top: 20px;
+  }
+  
+  .news-section, .events-section {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .news-section {
+    margin-bottom: 20px;
+  }
+  
+  .events-section {
+    margin-bottom: 20px;
+  }
+  
