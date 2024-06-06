@@ -1,41 +1,58 @@
-/* OrderCard.css */
-
 .order-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    width: 100%;
+  }
+  
+  .order-card .card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    text-align: center;
+  }
+  
+  .order-card .card-body {
     padding: 20px;
-    flex: 1 1 300px;
-}
-
-.order-info {
-    text-align: left;
-    flex-grow: 1;
-}
-
-.order-info h3 {
-    margin: 0 0 10px;
-    font-size: 20px;
-    color: #333;
-}
-
-.order-info p {
-    margin: 5px 0;
-    color: #666;
-}
-
-.order-image-container {
-    flex-shrink: 0;
-    margin-left: 20px;
-}
-
-.order-image {
+  }
+  
+  .order-card .carousel .carousel-item {
+    text-align: center;
+  }
+  
+  .order-card .carousel-control-prev-icon,
+  .order-card .carousel-control-next-icon {
+    filter: invert(100%);
+  }
+  
+  .order-card .product-image {
     max-width: 100px;
-    max-height: 100px;
-    object-fit: contain;
-    border-radius: 8px;
-}
+    margin-bottom: 10px;
+  }
+  
+  .order-card .total-price {
+    margin-top: 20px;
+    font-size: 1.2em;
+    text-align: center;
+  }
+  
+  @media (max-width: 576px) {
+    .order-card .card {
+      margin-bottom: 20px;
+      width: 100%;
+    }
+  
+    .order-card .card-body {
+      padding: 10px;
+    }
+  
+    .order-card .product-image {
+      max-width: 80px;
+    }
+  
+    .order-card .carousel-control-prev-icon,
+    .order-card .carousel-control-next-icon {
+      display: none;
+    }
+  
+    .order-card .total-price {
+      font-size: 1em;
+    }
+  }
+  

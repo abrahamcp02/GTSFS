@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchNewsById, updateNews } from '../services/apiNewsService';
-import jwtDecode from 'jwt-decode';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import './styles/EditNews.css';
 
 const EditNews = () => {
@@ -30,8 +31,7 @@ const EditNews = () => {
     }
   }, [newsId]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (name, value) => {
     setNews({ ...news, [name]: value });
   };
 
@@ -58,20 +58,18 @@ const EditNews = () => {
           id="title"
           name="title"
           value={news.title}
-          onChange={handleChange}
+          onChange={(e) => handleChange('title', e.target.value)}
           className="form-control"
         />
       </div>
       <div className="mb-3">
         <label htmlFor="content" className="form-label">Contenido:</label>
-        <textarea
-          id="content"
-          name="content"
+        <ReactQuill
           value={news.content}
-          onChange={handleChange}
+          onChange={(value) => handleChange('content', value)}
           className="form-control"
-          rows="5"
-        ></textarea>
+          theme="snow"
+        />
       </div>
       <div className="mb-3">
         <label htmlFor="image" className="form-label">Imagen (URL):</label>
@@ -80,7 +78,7 @@ const EditNews = () => {
           id="image"
           name="image"
           value={news.image}
-          onChange={handleChange}
+          onChange={(e) => handleChange('image', e.target.value)}
           className="form-control"
         />
       </div>

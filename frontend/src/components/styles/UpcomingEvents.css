@@ -1,0 +1,137 @@
+.upcoming-events {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .event-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 300px;
+    width: 100%;
+  }
+  
+  .event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .event-card h3 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  
+  .event-card p {
+    margin: 5px 0;
+  }
+  
+  .event-card .countdown {
+    font-weight: bold;
+    color: #e74c3c;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .event-card .event-details-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    align-self: flex-start;
+    text-align: center;
+  }
+  
+  .event-card .event-details-link:hover {
+    background-color: #2980b9;
+  }
+  
+  @media (max-width: 768px) {
+    .event-card {
+      padding: 15px;
+      max-width: 100%;
+    }
+  
+    .event-card h3 {
+      font-size: 1.25rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .upcoming-events {
+      padding: 10px;
+    }
+  
+    .event-card {
+      padding: 10px;
+      max-width: 100%;
+    }
+  
+    .event-card h3 {
+      font-size: 1rem;
+    }
+  }
+
+  .event-detail {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .event-detail .icon {
+    margin-right: 8px;
+  }
+  
+  .countdown {
+    margin-top: 16px;
+    font-weight: bold;
+    color: red;
+  }
+  
+  .event-details-link {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .event-details-link:hover {
+    background-color: #0056b3;
+  }
+
+  .event-image-container {
+    width: 100%; /* Utiliza todo el ancho disponible */
+    height: 200px; /* Altura fija para la imagen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .event-image {
+    max-width: 100%; /* Asegura que la imagen no exceda su contenedor */
+    max-height: 100%; /* Mantiene la proporción de la imagen */
+    object-fit: contain; /* Mantiene la proporción sin deformar */
+  }
+
+  .eventt-date{
+    text-align: center;
+    font-weight: bold;
+  }
+  

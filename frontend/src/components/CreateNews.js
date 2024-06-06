@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createNews } from '../services/apiNewsService';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import './styles/CreateNews.css'; // Asegúrate de crear este archivo para los estilos
 
 const CreateNews = () => {
   const [news, setNews] = useState({ title: '', content: '', image: '' });
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (name, value) => {
     setNews({ ...news, [name]: value });
   };
 
@@ -33,22 +34,19 @@ const CreateNews = () => {
             id="title"
             name="title"
             value={news.title}
-            onChange={handleChange}
+            onChange={(e) => handleChange('title', e.target.value)}
             className="form-control"
             required
           />
         </div>
         <div className="form-group">
           <label htmlFor="content">Contenido</label>
-          <textarea
-            id="content"
-            name="content"
+          <ReactQuill
             value={news.content}
-            onChange={handleChange}
+            onChange={(value) => handleChange('content', value)}
             className="form-control"
-            rows="5"
-            required
-          ></textarea>
+            theme="snow"
+          />
         </div>
         <div className="form-group">
           <label htmlFor="image">URL de la Imagen</label>
@@ -57,7 +55,7 @@ const CreateNews = () => {
             id="image"
             name="image"
             value={news.image}
-            onChange={handleChange}
+            onChange={(e) => handleChange('image', e.target.value)}
             className="form-control"
           />
         </div>

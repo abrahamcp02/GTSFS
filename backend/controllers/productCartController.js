@@ -5,24 +5,18 @@ const { v4: uuidv4 } = require('uuid');
 exports.addToProductCart = async (req, res) => {
   const { userId, productId, quantity } = req.body;
 
-  console.log('addToProductCart called'); // Añadir log inicial
-  console.log('Request body:', req.body); // Loguear el cuerpo de la solicitud
-
   if (!userId || !productId || !quantity || quantity < 1) {
-    console.log('Invalid input data'); // Loguear error de entrada inválida
     return res.status(400).json({ message: 'Invalid input data' });
   }
 
   try {
     for (let i = 0; i < quantity; i++) {
-      console.log(`Adding product ${productId} to cart for user ${userId}: ${i + 1} of ${quantity}`);
       await new Promise((resolve, reject) => {
         ProductCart.addToCart(userId, productId, (err, result) => {
           if (err) {
             console.error('Error adding to cart:', err); // Loguear error
             reject(err);
           } else {
-            console.log('Product added to cart:', result); // Loguear éxito
             resolve(result);
           }
         });
