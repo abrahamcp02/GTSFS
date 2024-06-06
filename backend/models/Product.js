@@ -10,7 +10,7 @@ class Product {
   }
 
   static create(product, callback) {
-    db.query('INSERT INTO products (name, price, description, image) VALUES (?, ?)', [product.name, product.price, product.description, product.image], callback);
+    db.query('INSERT INTO products (name, price, description, image) VALUES (?, ?, ?, ?)', [product.name, product.price, product.description, product.image], callback);
   }
 
   static update(id, product, callback) {
