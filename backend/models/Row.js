@@ -2,7 +2,7 @@ const db = require('../config/database');
 
 class Row {
     static create(theaterId, number, callback) {
-        db.query('INSERT INTO rows (theater_id, row_number) VALUES (?, ?)', [theaterId, number], (error, results) => {
+        db.query('INSERT INTO \`rows\` (theater_id, row_number) VALUES (?, ?)', [theaterId, number], (error, results) => {
             if (error) {
                 callback(error);
             } else {
@@ -12,7 +12,7 @@ class Row {
     }
 
     static delete(rowId, callback) {
-        const sql = "DELETE FROM rows WHERE id = ?";
+        const sql = "DELETE FROM \`rows\` WHERE id = ?";
         db.query(sql, [rowId], (error, results) => {
             if (error) {
                 callback(error);
@@ -23,7 +23,7 @@ class Row {
     }
 
     static getRowsByTheaterId(theaterId, callback) {
-        const sql = 'SELECT * FROM rows WHERE theater_id = ?';
+        const sql = 'SELECT * FROM \`rows\` WHERE theater_id = ?';
         db.query(sql, [theaterId], (error, results) => {
           if (error) {
             callback(error);

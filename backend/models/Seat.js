@@ -3,11 +3,11 @@ const db = require('../config/database');
 class SeatModel {
   static getSeatsByPerformanceId(performanceId, callback) {
     const query = `
-      SELECT seats.*, rows.row_number AS row_number, (seat_prices.is_reserved IS NOT NULL) AS is_occupied
+      SELECT seats.*, \`rows\`.row_number AS row_number, (seat_prices.is_reserved IS NOT NULL) AS is_occupied
       FROM seats
-      JOIN rows ON seats.row_id = rows.id
+      JOIN \`rows\` ON seats.row_id = \`rows\`.id
       LEFT JOIN seat_prices ON seat_prices.seat_id = seats.id AND seat_prices.performance_id = ?
-      JOIN theaters ON rows.theater_id = theaters.id
+      JOIN theaters ON \`rows\`.theater_id = theaters.id
       WHERE theaters.id = (SELECT theater_id FROM performances WHERE id = ?)
     `;
     db.query(query, [performanceId, performanceId], callback);
@@ -73,17 +73,17 @@ class SeatModel {
   }
 
   static createRow(theaterId, row, callback) {
-    const query = 'INSERT INTO rows (theater_id, row_number) VALUES (?, ?)';
+    const query = 'INSERT INTO \`rows\` (theater_id, row_number) VALUES (?, ?)';
     db.query(query, [theaterId, row.number], callback);
   }
 
   static deleteRow(rowId, callback) {
-    const query = 'DELETE FROM rows WHERE id = ?';
+    const query = 'DELETE FROM \`rows\` WHERE id = ?';
     db.query(query, [rowId], callback);
   }
 
   static getRowsByTheaterId(theaterId, callback) {
-    const query = 'SELECT * FROM rows WHERE theater_id = ?';
+    const query = 'SELECT * FROM \`rows\` WHERE theater_id = ?';
     db.query(query, [theaterId], callback);
   }
 }

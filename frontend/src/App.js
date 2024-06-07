@@ -43,20 +43,20 @@ const App = () => {
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/" element={<AuthWrapper><HomePage /></AuthWrapper>} />
-              <Route path="/store" element={<AuthWrapper><Store /></AuthWrapper>} />
-              <Route path="/products/:productId" element={<AuthWrapper><ProductDetails /></AuthWrapper>} />
+              <Route path="/" element={<HomePage />} />
+              <Route path="/store" element={<Store />} />
+              <Route path="/products/:productId" element={<ProductDetails />} />
               <Route path="/product-cart" element={<AuthWrapper><ProductCart /></AuthWrapper>} />
-              <Route path="/news/:newsId" element={<AuthWrapper><NewsDetails /></AuthWrapper>} />
-              <Route path="/performances" element={<AuthWrapper><TheatricalPerformances /></AuthWrapper>} />
-              <Route path="/performances/:performanceId" element={<AuthWrapper><PerformanceDetails /></AuthWrapper>} />
-              <Route path="/select-seats/:performanceId" element={<AuthWrapper><SeatSelectionPage /></AuthWrapper>} />
+              <Route path="/news/:newsId" element={<NewsDetails />} />
+              <Route path="/performances" element={<TheatricalPerformances />} />
+              <Route path="/performances/:performanceId" element={<PerformanceDetails />} />
+              <Route path="/select-seats/:performanceId" element={<SeatSelectionPage />} />
               <Route path="/theater-selection" element={<AuthWrapper><TheaterSelection /></AuthWrapper>} />
               <Route path="/configure-seats/:theaterId" element={<AuthWrapper adminOnly={true}><SeatConfiguration /></AuthWrapper>} />
               <Route path="/cart" element={<AuthWrapper><Cart /></AuthWrapper>} />
               <Route path="/configure-seat-prices/:performanceId/:theaterId" element={<AuthWrapper adminOnly={true}><SeatPriceConfiguration /></AuthWrapper>} />
               <Route path="/my-tickets" element={<AuthWrapper><MyTickets /></AuthWrapper>} />
-              <Route path="/event-details/:performanceId" element={<AuthWrapper><EventDetails /></AuthWrapper>} />
+              <Route path="/event-details/:performanceId" element={<EventDetails />} />
               <Route path="/edit-performance/:performanceId" element={<AuthWrapper adminOnly={true}><EditPerformance /></AuthWrapper>} />
               <Route path="/edit-product/:productId" element={<AuthWrapper adminOnly={true}><EditProduct /></AuthWrapper>} />
               <Route path="/edit-news/:newsId" element={<AuthWrapper adminOnly={true}><EditNews /></AuthWrapper>} />
