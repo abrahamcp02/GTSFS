@@ -19,7 +19,7 @@ const productCartRoutes = require('./routes/productCartRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 
 const corsOptions = {
-  origin: ['http://localhost:3000', 'http://192.168.137.1:3000'], // Reemplaza <YOUR_IP_ADDRESS> con tu IP
+  origin: ['http://localhost:3000', '<YOUR_IP_ADDRESS>'], // Reemplaza <YOUR_IP_ADDRESS> con tu IP
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 };

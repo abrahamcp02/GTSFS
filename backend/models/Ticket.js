@@ -30,7 +30,7 @@ class Ticket {
       JOIN seats s ON t.seat_id = s.id
       JOIN performances p ON t.performance_id = p.id
       JOIN users u ON t.user_id = u.id
-      JOIN rows r ON s.row_id = r.id
+      JOIN \`rows\` r ON s.row_id = r.id
       WHERE t.user_id = ?
     `;
     db.query(query, [userId], callback);
