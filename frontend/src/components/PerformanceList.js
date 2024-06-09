@@ -32,6 +32,13 @@ const PerformanceList = () => {
     navigate(`/edit-performance/${performance.id}`);
   };
 
+  // Filtra las funciones que ya han pasado
+  const upcomingPerformances = performances.filter(performance => {
+    const performanceDate = new Date(performance.performance_date).getTime();
+    const now = new Date().getTime();
+    return performanceDate > now;
+  });
+
   return (
     <div className="performance-list-container">
       {role === "admin" && (
@@ -44,7 +51,7 @@ const PerformanceList = () => {
           </button>
         </div>
       )}
-      {performances.map(performance => (
+      {upcomingPerformances.map(performance => (
         <div key={performance.id} className="performance-item">
           <div className="performance-image-container">
             <img src={performance.image} alt={performance.image} className="performance-image" />

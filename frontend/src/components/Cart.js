@@ -89,7 +89,7 @@ const Cart = () => {
                   <div><strong>Hora:</strong> {new Date(item.performance_date).toLocaleTimeString()}</div>
                   <div><strong>Precio:</strong> {item.price}€</div>
                 </div>
-                <button className="btn btn-danger" onClick={() => handleRemove(item.id)}>Eliminar</button>
+                <button className="btn btn-danger" onClick={() => handleRemove(item.seat_id)}>Eliminar</button>
               </li>
             ))}
           </ul>

@@ -46,12 +46,12 @@ const UpcomingEvents = () => {
   return (
     <div className="upcoming-events">
       {events.length > 0 ? (
-        events.map(event => (
+        events.filter(event => countdowns[event.id] !== "Evento terminado").map(event => (
           <div key={event.id} className="event-card">
             <h3>{event.title}</h3>
             <div className="event-image-container">
-            <img src={event.image} alt={event.image} className="event-image" />
-          </div>
+              <img src={event.image} alt={event.image} className="event-image" />
+            </div>
             <p className="eventt-date">📅 {new Date(event.performance_date).toLocaleDateString()}</p>
             <p className="countdown">Quedan: {countdowns[event.id]}</p>
             <a href={`/performances/${event.id}`} className="event-details-link">Entradas</a>

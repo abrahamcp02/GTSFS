@@ -46,7 +46,7 @@ exports.getSeatPrices = (req, res) => {
   const { performanceId } = req.params;
   const query = `
     SELECT sp.seat_id, sp.price
-    FROM seat_prices sp
+    FROM seatDetails sp
     JOIN performances p ON sp.performance_id = p.id
     WHERE p.id = ?
   `;

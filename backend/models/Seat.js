@@ -3,10 +3,10 @@ const db = require('../config/database');
 class SeatModel {
   static getSeatsByPerformanceId(performanceId, callback) {
     const query = `
-      SELECT seats.*, \`rows\`.row_number AS row_number, (seat_prices.is_reserved IS NOT NULL) AS is_occupied
+      SELECT seats.*, \`rows\`.row_number AS row_number, (seatDetails.is_reserved IS NOT NULL) AS is_occupied
       FROM seats
       JOIN \`rows\` ON seats.row_id = \`rows\`.id
-      LEFT JOIN seat_prices ON seat_prices.seat_id = seats.id AND seat_prices.performance_id = ?
+      LEFT JOIN seatDetails ON seatDetails.seat_id = seats.id AND seatDetails.performance_id = ?
       JOIN theaters ON \`rows\`.theater_id = theaters.id
       WHERE theaters.id = (SELECT theater_id FROM performances WHERE id = ?)
     `;
@@ -68,7 +68,7 @@ class SeatModel {
   }
 
   static markSeatsAsOccupied(seatIds, callback) {
-    const query = 'UPDATE seat_prices SET is_reserved = 1 WHERE seat_id IN (?)';
+    const query = 'UPDATE seatDetails SET is_reserved = 1 WHERE seat_id IN (?)';
     db.query(query, [seatIds], callback);
   }
 
