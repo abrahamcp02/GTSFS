@@ -1,7 +1,6 @@
 import React from 'react';
 
 const ShoppingCart = () => {
-    // Supongamos que 'cartItems' es un estado que viene desde arriba o se maneja aquí
     const cartItems = [];
 
     return (

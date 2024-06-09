@@ -1,7 +1,7 @@
 import React from 'react';
-import * as Icon from 'react-bootstrap-icons'; // Importa los iconos de Bootstrap
+import * as Icon from 'react-bootstrap-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './styles/Footer.css'; // Asegúrate de tener los estilos para el footer
+import './styles/Footer.css';
 
 const Footer = () => {
   return (

@@ -25,7 +25,6 @@ const EditPerformance = () => {
         const response = await fetchPerformanceById(performanceId);
         if (response.data && response.data.length > 0) {
           const performanceData = response.data[0];
-          // Convert the performance_date to the correct format for datetime-local input
           const performanceDate = new Date(performanceData.performance_date).toISOString().slice(0, 16);
           setPerformance({ ...performanceData, performance_date: performanceDate });
         }
@@ -67,7 +66,7 @@ const EditPerformance = () => {
   };
 
   if (loading) {
-    return <div className="loading-spinner">Loading...</div>; // Aquí podrías usar el componente LoadingSpinner
+    return <div className="loading-spinner">Loading...</div>;
   }
 
   return (

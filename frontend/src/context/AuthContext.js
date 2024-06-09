@@ -42,7 +42,7 @@ const AuthWrapper = ({ children, adminOnly }) => {
   }, [isAuthenticated, adminOnly, isAdmin, navigate]);
 
   if (!isAuthenticated || (adminOnly && !isAdmin)) {
-    return null; // or return a loading spinner if you want to show a loading state
+    return null;
   }
 
   return <>{children}</>;

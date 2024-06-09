@@ -9,7 +9,7 @@ exports.addToCart = async (req, res) => {
   try {
     Cart.addToCart(userId, seatId, performanceId, (err, result) => {
       if (err) {
-        console.error('Error adding to cart:', err);  // Agregar más detalles de error
+        console.error('Error adding to cart:', err);
         return res.status(500).json({ message: 'Error adding to cart', error: err });
       }
       res.status(201).json({ message: 'Item added to cart', cartItemId: result.insertId });
@@ -68,7 +68,6 @@ exports.purchaseTickets = async (req, res) => {
 
       Ticket.purchaseTickets(tickets, async (err, result) => {
 
-        // Marcar asientos como ocupados
         const seatIds = tickets.map(ticket => ticket.seat_id);
         Seat.markSeatsAsOccupied(seatIds, (err) => {
           if (err) {

@@ -9,9 +9,9 @@ import './styles/ProductDetails.css';
 const ProductDetails = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
-  const [quantity, setQuantity] = useState(1); // State for quantity
+  const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [showModal, setShowModal] = useState(false); // State for modal visibility
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const ProductDetails = () => {
       setIsLoading(true);
       try {
         const response = await fetchProductById(productId);
-        setProduct(response.data[0]); // Suponiendo que la respuesta es un array con un solo producto
+        setProduct(response.data[0]);
       } catch (error) {
         console.error('Failed to fetch product:', error);
       } finally {
@@ -34,14 +34,13 @@ const ProductDetails = () => {
     try {
       const token = localStorage.getItem('token');
       if (!token) {
-        // Redirige a la página de login si el usuario no está autenticado
         navigate('/login');
         return;
       }
 
       const decoded = jwtDecode(token);
       const userId = decoded.id;
-      await addToProductCart(userId, product.id, quantity); // Send quantity
+      await addToProductCart(userId, product.id, quantity);
     } catch (error) {
       console.error('Error adding to cart:', error);
     }
@@ -65,7 +64,7 @@ const ProductDetails = () => {
           src={product.image} 
           alt={product.name} 
           className="product-image" 
-          onClick={handleImageClick} // Click handler for image
+          onClick={handleImageClick}
         />
       </div>
       <div className="product-info">
@@ -85,7 +84,6 @@ const ProductDetails = () => {
         </InputGroup>
       </div>
 
-      {/* Modal for enlarged image */}
       <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Body>
           <img src={product.image} alt={product.name} className="product-image-large" />

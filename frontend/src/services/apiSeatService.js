@@ -22,6 +22,15 @@ const getRowsByTheaterId = async (theaterId) => {
   }
 };
 
+const fetchAvailableSeats = async (performanceId) => {
+  try {
+    const response = await axios.get(`${API_URL}/performances/${performanceId}/available-seats`);
+    return response.data.availableSeats;
+  } catch (error) {
+    console.error("Error fetching available seats:", error);
+    throw error;
+  }
+}
 
 const reserveSeat = async (seatId, userId) => {
     return await axios.post(`${API_URL}/seats/reserve`, {
@@ -46,4 +55,4 @@ const deleteSeat = async (seatId) => {
     return await axios.delete(`${API_URL}/seats/${seatId}`);
   };
 
-export { getSeatsByPerformanceId, reserveSeat, createRow, createSeat, deleteRow, deleteSeat, getRowsByTheaterId };
+export { getSeatsByPerformanceId, reserveSeat, createRow, createSeat, deleteRow, deleteSeat, getRowsByTheaterId, fetchAvailableSeats };

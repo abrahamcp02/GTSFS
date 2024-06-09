@@ -57,7 +57,7 @@ const Cart = () => {
       } catch (error) {
         console.error('Error purchasing tickets:', error);
       }
-    }, 3000); // Simulate processing time
+    }, 3000);
   };
 
   const handleRemove = async (itemId) => {
@@ -67,7 +67,7 @@ const Cart = () => {
         const decoded = jwtDecode(token);
         const userId = decoded.id;
         await removeFromCart(userId, itemId);
-        fetchCart(); // Refrescar el carrito después de eliminar un artículo
+        fetchCart();
       }
     } catch (error) {
       console.error('Error removing item from cart:', error);

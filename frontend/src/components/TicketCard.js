@@ -4,10 +4,9 @@ import { Document, Page, View, Text, Image, StyleSheet } from '@react-pdf/render
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/TicketCard.css';
 
-// Define styles for the PDF
 const styles = StyleSheet.create({
   page: {
-    padding: 40, // Increased padding for better print margins
+    padding: 40,
     fontFamily: 'Helvetica',
     fontSize: 12,
     lineHeight: 1.5,
@@ -24,8 +23,8 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   logo: {
-    width: 190, // Increased logo size
-    height: 190, // Increased logo size
+    width: 190,
+    height: 190,
   },
   qrCode: {
     width: 100,

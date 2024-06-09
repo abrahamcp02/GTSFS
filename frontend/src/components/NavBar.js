@@ -38,14 +38,14 @@ const NavBar = () => {
     };
 
     fetchCartCounts();
-    const intervalId = setInterval(fetchCartCounts, 10000); // Actualiza cada 10 segundos
+    const intervalId = setInterval(fetchCartCounts, 10000);
 
-    return () => clearInterval(intervalId); // Limpia el intervalo al desmontar el componente
+    return () => clearInterval(intervalId);
   }, []);
 
   const handleLogout = () => {
-    setUser(null); // Limpia el usuario del contexto
-    localStorage.removeItem('token'); // Elimina el token del localStorage
+    setUser(null);
+    localStorage.removeItem('token');
     window.location.href = '/';
   };
 

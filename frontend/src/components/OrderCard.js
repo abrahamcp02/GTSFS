@@ -1,6 +1,6 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-import './styles/OrderCard.css'; // Asegúrate de tener estilos para este componente
+import './styles/OrderCard.css';
 
 const OrderCard = ({ dateTime, orders }) => {
   const productCount = orders.reduce((acc, order) => {
@@ -18,14 +18,14 @@ const OrderCard = ({ dateTime, orders }) => {
   return (
     <div className="order-card card mb-4">
       <div className="card-header">
-        <h5>Orden No. {orders[0].order_number}</h5> {/* Muestra el número de orden */}
+        <h5>Orden No. {orders[0].order_number}</h5> {}
       </div>
       <div className="card-body">
         <Carousel indicators={false} controls={products.length > 1}>
           {products.map((product, index) => (
             <Carousel.Item key={index}>
               <div className="d-flex flex-column align-items-center">
-                <img src={product.image} alt={product.name} className="product-image" /> {/* Muestra la imagen del producto */}
+                <img src={product.image} alt={product.name} className="product-image" /> {}
                 <div><strong>Producto:</strong> {product.name}</div>
                 <div><strong>Descripción:</strong> {product.description}</div>
                 <div><strong>Precio:</strong> {product.price}€</div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { deleteProduct } from '../services/apiService';
-import './styles/DeleteProduct.css'; // Asegúrate de crear este archivo para los estilos
+import './styles/DeleteProduct.css';
 
 const DeleteProduct = () => {
   const { productId } = useParams();
@@ -9,11 +9,11 @@ const DeleteProduct = () => {
 
   const handleDelete = async () => {
     await deleteProduct(productId);
-    navigate('/store'); // Navega de vuelta a la lista de productos después de eliminar
+    navigate('/store');
   };
 
   const handleCancel = () => {
-    navigate('/store'); // Navega de vuelta a la lista de productos si se cancela la eliminación
+    navigate('/store');
   };
 
   return (

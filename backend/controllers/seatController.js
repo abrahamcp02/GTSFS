@@ -42,7 +42,6 @@ exports.updateSeat = (req, res) => {
   });
 };
 
-// Reservar un asiento
 exports.reserveSeat = (req, res) => {
   const { seatId, userId } = req.body;
   const { performanceId } = req.params;

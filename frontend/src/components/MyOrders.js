@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getMyOrders } from '../services/apiOrderService';
 import { jwtDecode } from 'jwt-decode';
-import OrderCard from './OrderCard'; // Asegúrate de importar el componente OrderCard
-import './styles/MyOrders.css'; // Asegúrate de tener estilos para este componente
+import OrderCard from './OrderCard';
+import './styles/MyOrders.css';
 
 const MyOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -28,7 +28,7 @@ const MyOrders = () => {
 
   const groupOrdersByDateTime = (orders) => {
     const grouped = orders.reduce((acc, order) => {
-      const dateTime = new Date(order.purchased_at).toLocaleString(); // Agrupa por fecha y hora exacta
+      const dateTime = new Date(order.purchased_at).toLocaleString();
       if (!acc[dateTime]) {
         acc[dateTime] = [];
       }

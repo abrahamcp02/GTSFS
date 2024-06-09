@@ -56,7 +56,6 @@ async function register(req, res) {
         return res.status(500).json({ message: 'Error registering user' });
       }
 
-      // Automatically log in the user after successful registration
       const token = jwt.sign({ id: result.insertId, username, role: 'user' }, process.env.JWT_SECRET, { expiresIn: '1h' });
       res.status(201).json({ message: 'User registered successfully', token });
     });

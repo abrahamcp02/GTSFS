@@ -21,7 +21,6 @@ exports.getPerformanceById = (req, res) => {
 };
 
 exports.createPerformance = (req, res) => {
-  // Asegúrate de que todos los campos necesarios estén incluidos en req.body
   Performance.create(req.body, (err, data) => {
     if (err) res.status(500).send({ message: err.message });
     else res.send({ message: "Performance created successfully!", data });
@@ -55,5 +54,21 @@ exports.getSeatPrices = (req, res) => {
       return res.status(500).send({ message: error.message });
     }
     res.send(results);
+  });
+};
+
+exports.getAvailableSeats = (req, res) => {
+  const { performanceId } = req.params;
+  const query = `
+    SELECT COUNT(s.id) AS availableSeats
+    FROM seats s
+    JOIN seatDetails sd ON s.id = sd.seat_id AND sd.performance_id = ?
+    WHERE sd.is_reserved IS NULL
+  `;
+  db.query(query, [performanceId], (error, results) => {
+    if (error) {
+      return res.status(500).send({ message: error.message });
+    }
+    res.send(results[0]);
   });
 };
