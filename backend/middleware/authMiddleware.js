@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
-const secret = "secreto"; // Asegúrate de definir JWT_SECRET en tu archivo .env
+require('dotenv').config();
+
+const secret = process.env.JWT_SECRET;
 
 const authMiddleware = (req, res, next) => {
   const token = req.headers['authorization'];
@@ -12,7 +14,7 @@ const authMiddleware = (req, res, next) => {
       return res.status(401).json({ message: 'Failed to authenticate token' });
     }
 
-    req.user = decoded; // Guardamos los datos del usuario en req.user
+    req.user = decoded;
     next();
   });
 };
