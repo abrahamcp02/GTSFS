@@ -3,7 +3,7 @@ const db = require('../config/database');
 class Ticket {
   static purchaseTickets(tickets, callback) {
     const query = `
-      INSERT INTO tickets (user_id, seat_id, performance_id, serial_number, purchased_at, price)
+      INSERT INTO tickets (user_id, seatDetails_id, performance_id, serial_number, purchased_at, price)
       VALUES ?
     `;
     const values = tickets.map(ticket => [
@@ -27,7 +27,7 @@ class Ticket {
       u.name AS user_name,
       r.row_number AS row_number
       FROM tickets t
-      JOIN seats s ON t.seat_id = s.id
+      JOIN seats s ON t.seatDetails_id = s.id
       JOIN performances p ON t.performance_id = p.id
       JOIN users u ON t.user_id = u.id
       JOIN \`rows\` r ON s.row_id = r.id
@@ -43,7 +43,7 @@ class Ticket {
 
   static removeFromCart(userId, itemId) {
     return new Promise((resolve, reject) => {
-      const query = 'DELETE FROM cart WHERE user_id = ? AND seat_id = ?';
+      const query = 'DELETE FROM ticketCartLines WHERE user_id = ? AND seat_id = ?';
       db.query(query, [userId, itemId], (error, results) => {
         if (error) {
           reject(error);
@@ -56,7 +56,7 @@ class Ticket {
 
   static getCartCount(userId) {
     return new Promise((resolve, reject) => {
-      const query = 'SELECT COUNT(*) AS count FROM cart WHERE user_id = ?';
+      const query = 'SELECT COUNT(*) AS count FROM ticketCartLines WHERE user_id = ?';
       db.query(query, [userId], (error, results) => {
         if (error) {
           reject(error);
