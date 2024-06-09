@@ -1,6 +1,10 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+require('dotenv').config();
+
+const secret = process.env.JWT_SECRET;
+
 
 function login(req, res) {
   const { username, password } = req.body;
@@ -31,7 +35,7 @@ function login(req, res) {
 
       const token = jwt.sign(
         { username: user.username, role: user.role, id: user.id },
-        'secreto',
+        secret,
         { expiresIn: '1h' }
       );
 
