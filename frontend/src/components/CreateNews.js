@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createNews } from '../services/apiNewsService';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import './styles/CreateNews.css'; // Asegúrate de crear este archivo para los estilos
+import './styles/CreateNews.css';
 
 const CreateNews = () => {
   const [news, setNews] = useState({ title: '', content: '', image: '' });

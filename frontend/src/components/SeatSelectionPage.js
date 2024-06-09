@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getSeatsByPerformanceId } from '../services/apiSeatService'; // Importa la función adecuada
+import { getSeatsByPerformanceId } from '../services/apiSeatService';
 import SeatMap from './SeatMap';
 
 const SeatSelectionPage = () => {

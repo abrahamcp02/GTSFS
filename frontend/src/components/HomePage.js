@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import NewsList from './NewsList';
 import { jwtDecode } from 'jwt-decode';
 import { fetchNews } from '../services/apiNewsService';
-import useAuth from './useAuth';
-import Carousel from 'react-bootstrap/Carousel';
 import UpcomingEvents from './UpcomingEvents';
-import './styles/HomePage.css'; // Asegúrate de tener estilos para este componente
+import './styles/HomePage.css';
 
 const HomePage = () => {
   const [news, setNews] = useState([]);

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './styles/Login.css'; // Asegúrate de que el archivo CSS esté correctamente vinculado
+import './styles/Login.css';
 import { login } from '../services/apiAuthService';
-import { Link } from 'react-router-dom'; // Asegúrate de importar Link aquí
+import { Link } from 'react-router-dom';
 
 
 const Login = () => {
@@ -20,7 +20,7 @@ const Login = () => {
       setTimeout(() => {
         localStorage.removeItem('token');
         navigate('/login');
-      }, 10000); // 20 seconds
+      }, 10000);
 
       window.location.href = '/';
     } catch (error) {

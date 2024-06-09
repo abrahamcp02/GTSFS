@@ -32,7 +32,6 @@ const PerformanceList = () => {
     navigate(`/edit-performance/${performance.id}`);
   };
 
-  // Filtra las funciones que ya han pasado
   const upcomingPerformances = performances.filter(performance => {
     const performanceDate = new Date(performance.performance_date).getTime();
     const now = new Date().getTime();

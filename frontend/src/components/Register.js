@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { register } from '../services/apiAuthService';
-import './styles/Register.css'; // Asegúrate de que el archivo CSS esté correctamente vinculado
+import './styles/Register.css';
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -11,11 +11,10 @@ function Register() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    setError(''); // Clear previous errors
+    setError('');
     try {
       const response = await register(username, email, name, password);
 
-      // Save token in localStorage and redirect to home
       localStorage.setItem('token', response.token);
       window.location.href = '/';
     } catch (error) {

@@ -27,7 +27,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
-// Rutas
 app.use('/api/products', productRoutes);
 app.use('/api/performances', performanceRoutes);
 app.use('/api/auth', authRoutes);

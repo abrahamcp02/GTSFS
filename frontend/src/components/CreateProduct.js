@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createProduct } from '../services/apiService';
-import './styles/CreateProduct.css'; // Asegúrate de crear este archivo para los estilos
+import './styles/CreateProduct.css';
 
 const CreateProduct = () => {
   const [product, setProduct] = useState({ name: '', price: '', image: '' });
@@ -15,7 +15,7 @@ const CreateProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await createProduct(product);
-    navigate('/store'); // Navega de vuelta a la lista de productos después de crear uno nuevo
+    navigate('/store');
   };
 
   return (

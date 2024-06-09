@@ -1,6 +1,5 @@
 const SeatPrice = require('../models/SeatPrice');
 
-// Obtener precios por ID de función
 exports.getSeatPricesByPerformanceId = async (req, res) => {
   try {
     const { performanceId } = req.params;
@@ -26,7 +25,6 @@ exports.createOrUpdatePrice = (req, res) => {
     });
   };
 
-// Eliminar el precio de un asiento
 exports.deleteSeatPrice = (req, res) => {
   const { seatId, performanceId } = req.body;
   SeatPrice.deletePrice(seatId, performanceId, (error, result) => {

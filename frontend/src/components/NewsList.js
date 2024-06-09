@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Asegúrate de importar Link aquí
+import { Link, useNavigate } from 'react-router-dom';
 import { fetchNews } from '../services/apiNewsService';
 import { jwtDecode } from "jwt-decode";
 import './styles/NewsList.css';

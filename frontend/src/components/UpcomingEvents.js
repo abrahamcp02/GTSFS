@@ -1,15 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { fetchPerformances } from '../services/apiPerformanceService';
+import { fetchAvailableSeats } from '../services/apiSeatService';
 import './styles/UpcomingEvents.css';
 
 const UpcomingEvents = () => {
   const [events, setEvents] = useState([]);
   const [countdowns, setCountdowns] = useState({});
+  const [availableSeats, setAvailableSeats] = useState({});
 
   useEffect(() => {
     const getEvents = async () => {
-      const response = await fetchPerformances();
-      setEvents(response.data);
+      try {
+        const response = await fetchPerformances();
+        const eventsData = response.data;
+        setEvents(eventsData);
+
+        const seatsPromises = eventsData.map(event => fetchAvailableSeats(event.id));
+        const seats = await Promise.all(seatsPromises);
+        const seatsData = eventsData.reduce((acc, event, index) => {
+          acc[event.id] = seats[index];
+          return acc;
+        }, {});
+        setAvailableSeats(seatsData);
+      } catch (error) {
+        console.error('Error fetching events or seats:', error);
+      }
     };
     getEvents();
   }, []);
@@ -54,7 +69,9 @@ const UpcomingEvents = () => {
             </div>
             <p className="eventt-date">📅 {new Date(event.performance_date).toLocaleDateString()}</p>
             <p className="countdown">Quedan: {countdowns[event.id]}</p>
-            <a href={`/performances/${event.id}`} className="event-details-link">Entradas</a>
+            <a href={`/performances/${event.id}`} className="event-details-link">
+              Entradas {availableSeats[event.id] !== undefined ? `(${availableSeats[event.id]} libres)` : ''}
+            </a>
           </div>
         ))
       ) : (

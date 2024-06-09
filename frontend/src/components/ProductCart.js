@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getProductCart, purchaseProducts, removeFromProductCart } from '../services/apiProductCartService';
 import { jwtDecode } from 'jwt-decode';
-import ProcessingPopup from './ProcessingWindow'; // Importar el componente ProcessingPopup
-import PaymentPopup from './PaymentWindow'; // Importar el componente PaymentPopup
+import ProcessingPopup from './ProcessingWindow';
+import PaymentPopup from './PaymentWindow';
 import './styles/Cart.css';
 
 const ProductCart = () => {
@@ -67,7 +67,7 @@ const ProductCart = () => {
     } finally {
       setTimeout(() => {
         setIsProcessing(false);
-      }, 3000); // Aumentar el tiempo a 3000 ms (3 segundos)
+      }, 3000);
     }
   };
 
@@ -82,19 +82,19 @@ const ProductCart = () => {
         const itemToRemove = cartItems.find(item => item.product_id === productId);
         if (itemToRemove.quantity > 1) {
           for (let i = 0; i < itemToRemove.quantity; i++) {
-            await removeFromProductCart(userId, itemToRemove.itemId); // Removing one by one from the DB
+            await removeFromProductCart(userId, itemToRemove.itemId);
           }
         } else {
           await removeFromProductCart(userId, itemToRemove.itemId);
         }
-        fetchCart(); // Refrescar el carrito después de eliminar un artículo
+        fetchCart();
       }
     } catch (error) {
       console.error('Error removing item from cart:', error);
     } finally {
       setTimeout(() => {
         setIsProcessing(false);
-      }, 1000); // Mantener el tiempo a 1000 ms (1 segundo) para la eliminación
+      }, 1000);
     }
   };
 

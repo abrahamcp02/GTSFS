@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import ProductList from './ProductList'; // Componente para listar productos
+import ProductList from './ProductList';
 
 
 const Store = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        // Simular la carga de productos desde una API
         fetch('/api/products')
             .then(response => response.json())
             .then(data => setProducts(data))

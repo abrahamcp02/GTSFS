@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import PerformanceList from './PerformanceList'; // Componente para listar funciones
+import PerformanceList from './PerformanceList';
 
 const TheatricalPerformances = () => {
     const [performances, setPerformances] = useState([]);
 
     useEffect(() => {
-        // Simular la carga de funciones desde una API
         fetch('/api/performances')
             .then(response => response.json())
             .then(data => setPerformances(data))

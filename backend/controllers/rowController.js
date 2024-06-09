@@ -5,7 +5,6 @@ exports.createRow = (req, res) => {
   const { theaterId } = req.params;
   const { number } = req.body;
   
-  // Suponiendo que tienes una función en tu modelo Row para crear la fila
   Row.create(theaterId, number, (error, row) => {
       if (error) {
           res.status(500).send({ message: error.message });
@@ -38,17 +37,15 @@ exports.getRowsByTheaterId = (req, res) => {
           return res.status(500).send({ message: seatError.message });
         }
   
-        // Mapear asientos para cambiar seat_number a number y ordenarlos
         const mappedSeats = seats.map(seat => ({
           id: seat.id,
-          number: seat.seat_number, // Cambiar seat_number a number
+          number: seat.seat_number, 
           row_id: seat.row_id,
           theater_id: seat.theater_id,
           category: seat.category,
           is_reserved: seat.is_reserved
         })).sort((a, b) => a.number - b.number);
   
-        // Mapear asientos a sus filas correspondientes y ordenar filas
         const rowsWithSeats = rows.map(row => ({
           ...row,
           seats: mappedSeats.filter(seat => seat.row_id === row.id)
